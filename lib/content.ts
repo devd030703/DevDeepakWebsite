@@ -3,7 +3,7 @@ export const siteConfig = {
   description:
     "Product at Engine by Starling. Operator, builder, and competitor pursuing excellence across technology, leadership, and sport.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://devdeepak.vercel.app",
-  linkedinUrl: "https://www.linkedin.com/in/devdeepak/",
+  linkedinUrl: "https://www.linkedin.com/in/dev-deepak2024/",
 };
 
 export const navigation = [
@@ -148,4 +148,3 @@ export const beyondWork = {
     "WaterAid fundraiser (£1,800)",
   ],
 } as const;
-
