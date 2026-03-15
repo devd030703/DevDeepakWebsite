@@ -18,18 +18,18 @@ export const navigation = [
 export const heroStats = [
   {
     value: "22",
-    label: "Youngest in Product",
-    detail: "Across the wider Starling Group.",
+    label: "Youngest Product Manager",
+    detail: "Youngest person in Product across the entire Starling Group",
   },
   {
-    value: "CTO",
-    label: "Programme Approved",
-    detail: "Engineering Enablement designed for scale.",
+    value: "King's College London",
+    label: "BSc Economics and Management 2024",
+    detail: "Youngest President of London's fastest growing Entreprenuers Society ",
   },
   {
-    value: "26.2",
-    label: "Miles Completed",
-    detail: "London Marathon finisher with more ahead.",
+    value: "Love hard things",
+    label: "2 Marathons, 2 Half Marathon and 1 Hyrox",
+    detail: "Love to keep myself busy outside of work",
   },
 ] as const;
 
