@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="removed intro and adding photos" />
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/public/photos/05bff0c1-7e74-4103-a5c7-79208c1c7932.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_0022.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_0111.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_0360.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_0547.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_1105.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_1201.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_3055.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/IMG_7880.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Photos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Photos.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +56,7 @@
     "git-widget-placeholder": "main",
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/Users/devdeepak/Desktop/DevDeepakWebsite",
+    "last_opened_file_path": "/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -55,6 +67,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/photos" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -70,7 +87,7 @@
       <option name="presentableId" value="Default" />
       <updated>1773595345887</updated>
       <workItem from="1773595346920" duration="190000" />
-      <workItem from="1773595692261" duration="4004000" />
+      <workItem from="1773595692261" duration="4784000" />
     </task>
     <task id="LOCAL-00001" summary="started my website">
       <option name="closed" value="true" />
@@ -128,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773599748271</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update">
+      <option name="closed" value="true" />
+      <created>1773599766114</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1773599766114</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +166,8 @@
     <MESSAGE value="Update hero page" />
     <MESSAGE value="Updates" />
     <MESSAGE value="removed intro and adding photos" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed intro and adding photos" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -151,6 +177,12 @@
           <line>9</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/components/Photos.tsx</url>
+          <line>17</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

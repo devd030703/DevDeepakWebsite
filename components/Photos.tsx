@@ -32,9 +32,7 @@ export async function Photos() {
       <Container>
         <Reveal>
           <SectionHeading
-            eyebrow="Photos"
-            title="A more personal view beyond the headline stats."
-            description="Drop image files into public/photos and they will appear here automatically."
+            title="Who doesn't like to have a bit of fun"
           />
         </Reveal>
 
