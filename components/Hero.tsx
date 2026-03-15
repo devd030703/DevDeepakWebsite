@@ -21,7 +21,7 @@ export function Hero() {
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
-              href="#story"
+              href="#highlights"
               className="inline-flex items-center justify-center rounded-full bg-electric-500 px-6 py-3 text-sm font-semibold text-white shadow-glow hover:bg-electric-400"
             >
               View Story
@@ -61,4 +61,3 @@ export function Hero() {
     </section>
   );
 }
-

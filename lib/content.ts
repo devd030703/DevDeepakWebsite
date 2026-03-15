@@ -32,6 +32,45 @@ export const heroStats = [
   },
 ] as const;
 
+export const photoGallery = [
+  {
+    src: "/photos/05bff0c1-7e74-4103-a5c7-79208c1c7932.jpg",
+    alt: "Dev Deepak photo 1",
+  },
+  {
+    src: "/photos/IMG_0022.JPG",
+    alt: "Dev Deepak photo 2",
+  },
+  {
+    src: "/photos/IMG_0111.jpeg",
+    alt: "Dev Deepak photo 3",
+  },
+  {
+    src: "/photos/IMG_0360.jpeg",
+    alt: "Dev Deepak photo 4",
+  },
+  {
+    src: "/photos/IMG_0547.jpeg",
+    alt: "Dev Deepak photo 5",
+  },
+  {
+    src: "/photos/IMG_1105.jpeg",
+    alt: "Dev Deepak photo 6",
+  },
+  {
+    src: "/photos/IMG_1201.jpeg",
+    alt: "Dev Deepak photo 7",
+  },
+  {
+    src: "/photos/IMG_3055.jpeg",
+    alt: "Dev Deepak photo 8",
+  },
+  {
+    src: "/photos/IMG_7880.jpeg",
+    alt: "Dev Deepak photo 9",
+  },
+] as const;
+
 export const highlights = [
   "First and only graduate to secure a full-time role at Engine by Starling",
   "Youngest person in Product across Starling Group at 22",
