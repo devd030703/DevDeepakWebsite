@@ -7,7 +7,6 @@ export const siteConfig = {
 };
 
 export const navigation = [
-  { href: "#photos", label: "Photos" },
   { href: "#highlights", label: "Highlights" },
   { href: "#career", label: "Career" },
   { href: "#timeline", label: "Timeline" },
@@ -18,12 +17,12 @@ export const navigation = [
 export const heroStats = [
   {
     value: "22",
-    label: "Youngest Product Manager",
-    detail: "Youngest person in Product across the entire Starling Group",
+    label: "Product Associate",
+    detail: "Youngest person in Product across Starling Group",
   },
   {
     value: "King's College London",
-    label: "BSc Economics and Management 2024",
+    label: "BSc Economics and Management",
     detail: "Graduated in 2024. Ran London's fastest growing Entreprenuers Society at 18 as the youngest President in our 10+ year history",
   },
   {
