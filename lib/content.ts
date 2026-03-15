@@ -7,7 +7,7 @@ export const siteConfig = {
 };
 
 export const navigation = [
-  { href: "#story", label: "Story" },
+  { href: "#photos", label: "Photos" },
   { href: "#highlights", label: "Highlights" },
   { href: "#career", label: "Career" },
   { href: "#timeline", label: "Timeline" },
@@ -24,17 +24,14 @@ export const heroStats = [
   {
     value: "King's College London",
     label: "BSc Economics and Management 2024",
-    detail: "Youngest President of London's fastest growing Entreprenuers Society ",
+    detail: "Graduated in 2024. Ran London's fastest growing Entreprenuers Society at 18 as the youngest President in our 10+ year history",
   },
   {
     value: "Love hard things",
-    label: "2 Marathons, 2 Half Marathon and 1 Hyrox",
+    label: "two Marathons, two Half Marathons and one Hyrox",
     detail: "Love to keep myself busy outside of work",
   },
 ] as const;
-
-export const introManifesto =
-  "I’m drawn to steep learning curves, high standards, and problems that do not come with obvious answers. High agency matters: learn fast, earn trust quickly, and move decisively when the room is still figuring out the shape of the challenge. The work I enjoy most sits where product judgement, leadership, and competitive intensity compound.";
 
 export const highlights = [
   "First and only graduate to secure a full-time role at Engine by Starling",

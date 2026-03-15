@@ -11,13 +11,12 @@ export function Hero() {
     >
       <Container className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
         <Reveal className="flex flex-col justify-center">
-          <p className="section-kicker">Product / Operator / Competitor</p>
+          <p className="section-kicker">Operator</p>
           <h1 className="mt-6 max-w-4xl font-display text-5xl font-semibold tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
-            Product, competition, and building things that matter.
+            Addicted to Hard Things.
           </h1>
           <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68 sm:text-xl">
-            Product at Engine by Starling. Operator, builder, and competitor
-            pursuing excellence across technology, leadership, and sport.
+            Currently a Product Associate at Engine by Starling working across FinCrime, Lending, Savings, Customer Service, Cards and Payments
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">

@@ -3,7 +3,7 @@ import { Career } from "@/components/Career";
 import { Contact } from "@/components/Contact";
 import { Hero } from "@/components/Hero";
 import { Highlights } from "@/components/Highlights";
-import { Intro } from "@/components/Intro";
+import { Photos } from "@/components/Photos";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Timeline } from "@/components/Timeline";
 
@@ -28,7 +28,7 @@ export default function Home() {
 
         <main id="main-content">
           <Hero />
-          <Intro />
+          <Photos />
           <Highlights />
           <Career />
           <Timeline />
@@ -39,4 +39,3 @@ export default function Home() {
     </>
   );
 }
-
