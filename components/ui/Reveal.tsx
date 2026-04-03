@@ -7,8 +7,6 @@ import {
   type HTMLMotionProps,
 } from "framer-motion";
 
-import { cn } from "@/lib/utils";
-
 type RevealProps = Omit<HTMLMotionProps<"div">, "children"> & {
   children: ReactNode;
   delay?: number;
@@ -30,7 +28,7 @@ export function Reveal({
       whileInView={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(className)}
+      className={className}
       {...props}
     >
       {children}
