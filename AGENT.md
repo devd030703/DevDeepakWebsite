@@ -22,7 +22,9 @@ The quality bar is closer to a sharp founder/product portfolio than a template-d
 
 - Framework: Next.js App Router with TypeScript
 - Styling: Tailwind CSS with project-defined design tokens in `tailwind.config.ts`
-- Motion: `framer-motion`, centralized through [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx)
+- Motion: `framer-motion`, centralized through [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx) — the shared scroll-in animation wrapper; prefer this over ad hoc animations
+- UI primitives: [`components/ui/Container.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Container.tsx) (page-width constraint) and [`components/ui/SectionHeading.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/SectionHeading.tsx) (consistent section title treatment)
+- Design tokens: `tailwind.config.ts` defines the `electric` blue palette (100–700 shades) and a `glow` box-shadow — reuse these; do not invent unrelated colors
 - Content source: [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts)
 - Photo source: [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos), discovered from disk in [`components/Photos.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Photos.tsx)
 - Page composition: [`app/page.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/page.tsx)
@@ -195,11 +197,12 @@ A change is not done until all of the following are true:
 Run these from the repo root:
 
 ```bash
-npm run lint
-npm run build
+npm run dev      # local dev server — use for UI, copy, spacing, or interaction changes
+npm run lint     # ESLint check
+npm run build    # production build
 ```
 
-Use `npm run dev` for manual review when making UI or copy changes that affect flow, spacing, or interactions.
+There is no test suite. A change is done when lint passes and the production build succeeds (for structural or styling changes).
 
 ## Good Change Examples
 
