@@ -39,13 +39,13 @@ export function Hero() {
         {/* Name */}
         <motion.p
           {...entry(0, reduceMotion)}
-          className="text-[0.65rem] font-medium uppercase tracking-[0.32em] text-gray-500"
+          className="text-[0.65rem] font-medium uppercase tracking-[0.32em] text-[var(--page-text-soft)]"
         >
           Dev Deepak
         </motion.p>
 
         {/* Headline — chromatic aberration snap */}
-        <h1 className="mt-5 font-display text-[clamp(2.75rem,6vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em] text-gray-950">
+        <h1 className="mt-5 font-display text-[clamp(2.75rem,6vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em] text-[var(--page-text)]">
           {HEADLINE_LINES.map((line, i) => {
             if (reduceMotion) {
               return (
@@ -90,7 +90,8 @@ export function Hero() {
                 {/* Red channel — offset left, vanishes on snap */}
                 <motion.span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 block select-none text-red-500"
+                  className="pointer-events-none absolute inset-0 block select-none"
+                  style={{ color: "var(--hero-glitch-red)" }}
                   initial={{ opacity: 0, filter: "blur(4px)" }}
                   animate={{
                     opacity: [0, 0.5, 0.5, 0],
@@ -111,7 +112,7 @@ export function Hero() {
                 <motion.span
                   aria-hidden
                   className="pointer-events-none absolute inset-0 block select-none"
-                  style={{ color: "#3563ff" }}
+                  style={{ color: "var(--hero-glitch-blue)" }}
                   initial={{ opacity: 0, filter: "blur(4px)" }}
                   animate={{
                     opacity: [0, 0.45, 0.45, 0],
@@ -135,9 +136,9 @@ export function Hero() {
         {/* Subline — appears after the snap resolves */}
         <motion.p
           {...entry(0.88, reduceMotion)}
-          className="mt-6 max-w-xs text-[1rem] leading-relaxed text-gray-600 sm:text-[1.0625rem]"
+          className="mt-6 max-w-xs text-[1rem] leading-relaxed text-[var(--page-text-muted)] sm:text-[1.0625rem]"
         >
-          Product at Engine by Starling. Previously Apple, Octopus, Episode 1 Ventures.
+          Product at Engine by Starling. Previously Apple, Octopus Energy, Starling Bank, Episode 1 Ventures.
         </motion.p>
       </Container>
     </section>

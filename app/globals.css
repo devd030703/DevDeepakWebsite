@@ -3,33 +3,83 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --font-body: "Avenir Next", "Segoe UI", sans-serif;
   --font-display: "Avenir Next Condensed", "Avenir Next", "Arial Narrow", sans-serif;
+  --page-bg: #ffffff;
+  --page-text: #14161a;
+  --page-text-muted: #5d6673;
+  --page-text-soft: #7c8694;
+  --surface-raised: rgba(255, 255, 255, 0.82);
+  --surface-pill: rgba(255, 255, 255, 0.88);
+  --surface-soft: rgba(249, 250, 252, 0.86);
+  --surface-logo-bg: rgba(255, 255, 255, 0);
+  --logo-stage-border: rgba(15, 23, 42, 0);
+  --photo-frame-border: rgba(15, 23, 42, 0.08);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.14);
+  --shadow-soft: rgba(15, 23, 42, 0.09);
+  --selection-bg: rgba(53, 99, 255, 0.12);
+  --selection-text: #0a0a0a;
+  --hero-glitch-red: #d95466;
+  --hero-glitch-blue: #3563ff;
+  --page-top-glow: transparent;
+  --page-bottom-glow: transparent;
+  --timeline-glow: rgba(148, 163, 184, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg: #0f1115;
+    --page-text: #eef2f5;
+    --page-text-muted: #a7b1bd;
+    --page-text-soft: #7d8896;
+    --surface-raised: rgba(19, 23, 30, 0.86);
+    --surface-pill: rgba(20, 24, 31, 0.84);
+    --surface-soft: rgba(14, 18, 24, 0.9);
+    --surface-logo-bg: rgba(19, 23, 30, 0.9);
+    --logo-stage-border: rgba(148, 163, 184, 0.18);
+    --photo-frame-border: rgba(148, 163, 184, 0.18);
+    --border-subtle: rgba(148, 163, 184, 0.18);
+    --border-strong: rgba(148, 163, 184, 0.26);
+    --shadow-soft: rgba(2, 8, 23, 0.42);
+    --selection-bg: rgba(125, 149, 255, 0.24);
+    --selection-text: #f6f8fb;
+    --hero-glitch-red: #ff9098;
+    --hero-glitch-blue: #91a5ff;
+    --page-top-glow: rgba(255, 255, 255, 0.04);
+    --page-bottom-glow: rgba(186, 178, 160, 0.06);
+    --timeline-glow: rgba(81, 169, 255, 0.14);
+  }
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
+  background: var(--page-bg);
 }
 
 body {
   min-height: 100vh;
-  background: #ffffff;
+  background-color: var(--page-bg);
+  background-image:
+    radial-gradient(circle at 12% 0%, var(--page-top-glow), transparent 34%),
+    radial-gradient(circle at 88% 100%, var(--page-bottom-glow), transparent 38%);
+  color: var(--page-text);
 }
 
 ::selection {
-  background: rgba(53, 99, 255, 0.12);
-  color: #0a0a0a;
+  background: var(--selection-bg);
+  color: var(--selection-text);
 }
 
 @layer base {
   * {
-    @apply border-black/[0.08];
+    border-color: var(--border-subtle);
   }
 
   body {
-    @apply font-body text-gray-900 antialiased;
+    @apply font-body antialiased;
   }
 
   a,

@@ -39,7 +39,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1115" },
+  ],
 };
 
 export default function RootLayout({
@@ -49,7 +53,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-white text-gray-900">{children}</body>
+      <body className="bg-[var(--page-bg)] text-[var(--page-text)]">
+        {children}
+      </body>
     </html>
   );
 }
