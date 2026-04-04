@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="Uodates to AGENT.md and introduction of .impeccable.md claude skill">
-      <change afterPath="$PROJECT_DIR$/public/photos/Kraken.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/amicable.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/apple.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/engine-by-starling.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/episode1.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/highgate.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/kings-college-london.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/photos/starling.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Career.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Career.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Hero.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/SiteHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/SiteHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Timeline.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/content.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/content.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next-env.d.ts" afterDir="false" />
-    </list>
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="massive changes. introduction of better timeline and took out a bunch of pointless stuff" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -201,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775256859887</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="massive changes. introduction of better timeline and took out a bunch of pointless stuff">
+      <option name="closed" value="true" />
+      <created>1775263649607</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1775263649607</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,7 +208,8 @@
     <MESSAGE value="Few tweaks" />
     <MESSAGE value="Added a READ.me" />
     <MESSAGE value="Uodates to AGENT.md and introduction of .impeccable.md claude skill" />
-    <option name="LAST_COMMIT_MESSAGE" value="Uodates to AGENT.md and introduction of .impeccable.md claude skill" />
+    <MESSAGE value="massive changes. introduction of better timeline and took out a bunch of pointless stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="massive changes. introduction of better timeline and took out a bunch of pointless stuff" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -231,7 +221,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/components/Timeline.tsx</url>
-          <line>401</line>
+          <line>405</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>

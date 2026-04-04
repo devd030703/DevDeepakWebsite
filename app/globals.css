@@ -38,16 +38,6 @@ body {
   }
 }
 
-@layer components {
-  .section-shell {
-    @apply relative scroll-mt-16 py-20 sm:py-24;
-  }
-
-  .section-kicker {
-    @apply font-display text-xs uppercase tracking-[0.3em] text-gray-400;
-  }
-}
-
 @layer utilities {
   .no-scrollbar {
     -ms-overflow-style: none;
