@@ -239,7 +239,7 @@ function LogoStage({ entry }: { entry: TimelineEntry }) {
   const logo = LOGO_CONFIG[entry.company];
 
   return (
-    <div className="flex h-20 w-full max-w-[22rem] items-center overflow-hidden sm:h-24">
+    <div className="flex h-16 w-full max-w-[22rem] items-center overflow-hidden sm:h-20">
       {logo?.src ? (
         <Image
           src={logo.src}
@@ -380,8 +380,8 @@ function TimelineItem({
               }}
             />
 
-            <div className="relative flex flex-col gap-8 sm:gap-10">
-              <div className="grid gap-4 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)] xl:items-end xl:gap-10">
+            <div className="relative flex flex-col gap-7 sm:gap-8">
+              <div className="grid gap-3 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)] xl:items-end xl:gap-9">
                 <div>
                   <LogoStage entry={entry} />
                 </div>
@@ -395,7 +395,7 @@ function TimelineItem({
                   }
                 >
                   <p
-                    className="text-lg leading-tight sm:text-xl lg:text-[1.35rem]"
+                    className="text-[1rem] leading-[1.15] sm:text-[1.08rem] lg:text-[1.18rem]"
                     style={{
                       color: brandTypography.color,
                       fontFamily: brandTypography.fontFamily,
@@ -408,7 +408,7 @@ function TimelineItem({
                     {entry.role}
                   </p>
                   <p
-                    className="mt-4 text-[1rem] leading-8 sm:text-[1.05rem] lg:text-[1.12rem]"
+                    className="mt-2.5 text-[0.94rem] leading-7 sm:text-[0.98rem] lg:text-[1.04rem]"
                     style={{
                       color: brandTypography.color,
                       fontFamily: brandTypography.fontFamily,
