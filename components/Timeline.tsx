@@ -2,12 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import {
-  AnimatePresence,
-  LayoutGroup,
-  motion,
-  useReducedMotion,
-} from "framer-motion";
+import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
 
 import { timelineEntries } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -319,72 +314,185 @@ function TimelineItem({
   );
 }
 
-type MosaicAspect = "landscape" | "portrait" | "square";
+type MosaicProfile =
+  | "ultraWide"
+  | "wide"
+  | "landscape"
+  | "square"
+  | "portrait"
+  | "tallPortrait";
 
 type MosaicPhoto = {
   src: string;
   alt: string;
   objectPosition: CSSProperties["objectPosition"];
-  aspect: MosaicAspect;
-};
-
-type RawMosaicPhoto = Omit<MosaicPhoto, "aspect"> & {
   width: number;
   height: number;
+  aspectRatio: number;
+  profile: MosaicProfile;
 };
+
+type RawMosaicPhoto = Omit<MosaicPhoto, "aspectRatio" | "profile">;
 
 const MOSAIC_GAP_PX = 8;
 const MOSAIC_HOVER_OPEN_DELAY_MS = 90;
 const MOSAIC_HOVER_CLOSE_DELAY_MS = 140;
+const DESKTOP_MOSAIC_COLUMNS = 4;
 
 const RAW_MOSAIC_PHOTOS: readonly RawMosaicPhoto[] = [
   { src: "/photos/Engine_Analyst_2.jpeg", alt: "Engine by Starling", objectPosition: "center 24%", width: 5712, height: 4284 },
-  { src: "/photos/Engine_Analyst_4.png", alt: "Engine by Starling", objectPosition: "center 30%", width: 2259, height: 3000 },
+  { src: "/photos/Starling_Bank_1.jpeg", alt: "Starling Bank", objectPosition: "center 22%", width: 5712, height: 4284 },
+  { src: "/photos/amicable_2.jpeg", alt: "amicable", objectPosition: "center", width: 4284, height: 5712 },
   { src: "/photos/Engine_Analyst_1.jpeg", alt: "Engine by Starling", objectPosition: "center", width: 4105, height: 4105 },
   { src: "/photos/Engine_Product_Associate_2.jpeg", alt: "Engine by Starling", objectPosition: "center 38%", width: 5712, height: 4284 },
-  { src: "/photos/Engine_Product_Associate_1.PNG", alt: "Engine by Starling", objectPosition: "center 26%", width: 1320, height: 2868 },
-  { src: "/photos/Engine_Product_Associate_3.jpeg", alt: "Engine by Starling", objectPosition: "center 32%", width: 4032, height: 3024 },
-  { src: "/photos/Starling_Bank_1.jpeg", alt: "Starling Bank", objectPosition: "center 22%", width: 5712, height: 4284 },
-  { src: "/photos/Starling_Bank_2.jpeg", alt: "Starling Bank", objectPosition: "center 36%", width: 726, height: 1080 },
   { src: "/photos/Starling_Bank_3.jpeg", alt: "Starling Bank", objectPosition: "center 28%", width: 5712, height: 4284 },
-  { src: "/photos/Starling_Bank_4.jpeg", alt: "Starling Bank", objectPosition: "center", width: 4032, height: 3024 },
-  { src: "/photos/amicable_1.jpeg", alt: "amicable", objectPosition: "center", width: 4032, height: 3024 },
-  { src: "/photos/amicable_2.jpeg", alt: "amicable", objectPosition: "center", width: 4284, height: 5712 },
-  { src: "/photos/amicable_3.jpeg", alt: "amicable", objectPosition: "center", width: 4032, height: 3024 },
-  { src: "/photos/apple_1.jpeg", alt: "Apple", objectPosition: "center", width: 4032, height: 3024 },
   { src: "/photos/apple_3.jpeg", alt: "Apple", objectPosition: "center", width: 600, height: 800 },
-  { src: "/photos/apple_2.jpeg", alt: "Apple", objectPosition: "center", width: 4032, height: 3024 },
-  { src: "/photos/apple_5.jpeg", alt: "Apple", objectPosition: "center", width: 4032, height: 3024 },
   { src: "/photos/King_College_London_1.jpeg", alt: "King's College London", objectPosition: "center 22%", width: 4032, height: 3024 },
+  { src: "/photos/Engine_Analyst_4.png", alt: "Engine by Starling", objectPosition: "center 30%", width: 2259, height: 3000 },
+  { src: "/photos/Starling_Bank_4.jpeg", alt: "Starling Bank", objectPosition: "center", width: 4032, height: 3024 },
+  { src: "/photos/apple_5.jpeg", alt: "Apple", objectPosition: "center", width: 4032, height: 3024 },
+  { src: "/photos/Engine_Product_Associate_1.PNG", alt: "Engine by Starling", objectPosition: "center 26%", width: 1320, height: 2868 },
+  { src: "/photos/amicable_1.jpeg", alt: "amicable", objectPosition: "center", width: 4032, height: 3024 },
+  { src: "/photos/Starling_Bank_2.jpeg", alt: "Starling Bank", objectPosition: "center 36%", width: 726, height: 1080 },
+  { src: "/photos/apple_1.jpeg", alt: "Apple", objectPosition: "center", width: 4032, height: 3024 },
+  { src: "/photos/Engine_Product_Associate_3.jpeg", alt: "Engine by Starling", objectPosition: "center 32%", width: 4032, height: 3024 },
+  { src: "/photos/amicable_3.jpeg", alt: "amicable", objectPosition: "center", width: 4032, height: 3024 },
+  { src: "/photos/apple_2.jpeg", alt: "Apple", objectPosition: "center", width: 4032, height: 3024 },
   { src: "/photos/kraken_2.jpeg", alt: "Kraken", objectPosition: "center", width: 4032, height: 3024 },
   { src: "/photos/merch_1.jpeg", alt: "Personal", objectPosition: "center", width: 4032, height: 3024 },
 ] as const;
 
-const EXPANDED_SPANS: Record<MosaicAspect, { cols: number; rows: number }> = {
-  landscape: { cols: 2, rows: 1 },
-  portrait: { cols: 1, rows: 2 },
-  square: { cols: 2, rows: 2 },
+const PROFILE_COLUMN_WEIGHTS: Record<MosaicProfile, readonly number[]> = {
+  ultraWide: [18, 10, -1000, -1000],
+  wide: [15, 13, 2, -1000],
+  landscape: [11, 11, 8, 1],
+  square: [7, 9, 10, 4],
+  portrait: [6, 9, 11, 5],
+  tallPortrait: [5, 7, 9, 13],
 };
 
-function classifyMosaicAspect(width: number, height: number): MosaicAspect {
+const PROFILE_IDLE_SCALE: Record<MosaicProfile, number> = {
+  ultraWide: 1.1,
+  wide: 1.08,
+  landscape: 1.07,
+  square: 1.05,
+  portrait: 1.1,
+  tallPortrait: 1.13,
+};
+
+const PROFILE_ACTIVE_SCALE: Record<MosaicProfile, number> = {
+  ultraWide: 1.01,
+  wide: 1.01,
+  landscape: 1.01,
+  square: 1,
+  portrait: 1.02,
+  tallPortrait: 1.03,
+};
+
+function classifyMosaicProfile(width: number, height: number): MosaicProfile {
   const aspectRatio = width / height;
 
-  if (aspectRatio > 1.15) {
+  if (aspectRatio >= 2.05) {
+    return "ultraWide";
+  }
+
+  if (aspectRatio >= 1.55) {
+    return "wide";
+  }
+
+  if (aspectRatio >= 1.12) {
     return "landscape";
   }
 
-  if (aspectRatio < 0.85) {
+  if (aspectRatio <= 0.52) {
+    return "tallPortrait";
+  }
+
+  if (aspectRatio <= 0.84) {
     return "portrait";
   }
 
   return "square";
 }
 
-const MOSAIC_PHOTOS: readonly MosaicPhoto[] = RAW_MOSAIC_PHOTOS.map(
-  ({ width, height, ...photo }) => ({
+function toMosaicPhoto(photo: RawMosaicPhoto): MosaicPhoto {
+  const aspectRatio = photo.width / photo.height;
+
+  return {
     ...photo,
-    aspect: classifyMosaicAspect(width, height),
-  }),
+    aspectRatio,
+    profile: classifyMosaicProfile(photo.width, photo.height),
+  };
+}
+
+function getDesktopSlotScore(
+  orderedPhotos: readonly MosaicPhoto[],
+  photo: MosaicPhoto,
+  slotIndex: number,
+) {
+  const column = (slotIndex % DESKTOP_MOSAIC_COLUMNS) + 1;
+  const leftPhoto = slotIndex % DESKTOP_MOSAIC_COLUMNS === 0
+    ? null
+    : orderedPhotos[slotIndex - 1];
+  const abovePhoto =
+    slotIndex >= DESKTOP_MOSAIC_COLUMNS
+      ? orderedPhotos[slotIndex - DESKTOP_MOSAIC_COLUMNS]
+      : null;
+  let score = PROFILE_COLUMN_WEIGHTS[photo.profile][column - 1];
+
+  if (leftPhoto?.alt === photo.alt) {
+    score -= 4;
+  }
+
+  if (abovePhoto?.alt === photo.alt) {
+    score -= 3;
+  }
+
+  if (leftPhoto?.profile === photo.profile) {
+    score -= 1.25;
+  }
+
+  if (abovePhoto?.profile === photo.profile) {
+    score -= 0.75;
+  }
+
+  if (column === 1 && (photo.profile === "wide" || photo.profile === "ultraWide")) {
+    score += 2;
+  }
+
+  if (column === 4 && photo.profile === "tallPortrait") {
+    score += 2;
+  }
+
+  return score;
+}
+
+function orderMosaicPhotos(photos: readonly MosaicPhoto[]) {
+  const remaining = [...photos];
+  const ordered: MosaicPhoto[] = [];
+
+  while (remaining.length > 0) {
+    let bestIndex = 0;
+    let bestScore = Number.NEGATIVE_INFINITY;
+
+    for (const [index, photo] of remaining.entries()) {
+      const score = getDesktopSlotScore(ordered, photo, ordered.length);
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestIndex = index;
+      }
+    }
+
+    ordered.push(remaining[bestIndex]);
+    remaining.splice(bestIndex, 1);
+  }
+
+  return ordered;
+}
+
+const MOSAIC_PHOTOS: readonly MosaicPhoto[] = orderMosaicPhotos(
+  RAW_MOSAIC_PHOTOS.map(toMosaicPhoto),
 );
 
 function getMosaicColumnCount(width: number) {
@@ -399,13 +507,72 @@ function getMosaicColumnCount(width: number) {
   return 4;
 }
 
-function getExpandedSpan(aspect: MosaicAspect, columns: number) {
-  const desiredSpan = EXPANDED_SPANS[aspect];
+function getDesiredExpandedSpan(profile: MosaicProfile, columns: number) {
+  if (profile === "ultraWide") {
+    return { cols: Math.min(columns, 4), rows: 2 };
+  }
 
-  return {
-    cols: Math.min(desiredSpan.cols, columns),
-    rows: desiredSpan.rows,
-  };
+  if (profile === "wide") {
+    return { cols: Math.min(columns, 3), rows: 2 };
+  }
+
+  if (profile === "landscape" || profile === "square") {
+    return { cols: Math.min(columns, 2), rows: 2 };
+  }
+
+  if (profile === "portrait") {
+    return { cols: columns >= 2 ? 2 : 1, rows: 3 };
+  }
+
+  return { cols: 1, rows: columns >= 4 ? 4 : 3 };
+}
+
+function getExpandedSpan(
+  profile: MosaicProfile,
+  columns: number,
+  index: number,
+) {
+  const desiredSpan = getDesiredExpandedSpan(profile, columns);
+  const column = (index % columns) + 1;
+  const remainingColumns = columns - column + 1;
+
+  if (desiredSpan.cols <= remainingColumns) {
+    return desiredSpan;
+  }
+
+  if (profile === "ultraWide") {
+    return {
+      cols: Math.max(2, remainingColumns),
+      rows: 2,
+    };
+  }
+
+  if (profile === "wide") {
+    return {
+      cols: Math.max(1, remainingColumns),
+      rows: 2,
+    };
+  }
+
+  if (profile === "landscape" || profile === "square") {
+    return {
+      cols: 1,
+      rows: 2,
+    };
+  }
+
+  if (profile === "portrait") {
+    return {
+      cols: 1,
+      rows: 3,
+    };
+  }
+
+  return desiredSpan;
+}
+
+function getThumbnailScale(profile: MosaicProfile, isActive: boolean) {
+  return isActive ? PROFILE_ACTIVE_SCALE[profile] : PROFILE_IDLE_SCALE[profile];
 }
 
 function PhotoMosaic() {
@@ -519,12 +686,12 @@ function PhotoMosaic() {
               gridAutoFlow: "dense",
             }}
           >
-            {MOSAIC_PHOTOS.map((photo, i) => {
-              const isActive = activeIndex === i;
+            {MOSAIC_PHOTOS.map((photo, index) => {
+              const isActive = activeIndex === index;
+              const isDimmed = activeIndex !== null && activeIndex !== index;
               const activeSpan = isActive
-                ? getExpandedSpan(photo.aspect, columns)
+                ? getExpandedSpan(photo.profile, columns, index)
                 : { cols: 1, rows: 1 };
-              const isDimmed = activeIndex !== null && activeIndex !== i;
 
               return (
                 <motion.button
@@ -536,14 +703,17 @@ function PhotoMosaic() {
                     gridColumn: `span ${activeSpan.cols}`,
                     gridRow: `span ${activeSpan.rows}`,
                     zIndex: isActive ? 1 : 0,
+                    boxShadow: isActive
+                      ? "0 18px 40px light-dark(rgba(15,23,42,0.14), rgba(2,8,23,0.42))"
+                      : "none",
                   }}
                   animate={{ opacity: isDimmed ? 0.34 : 1 }}
                   transition={{
-                    layout: { duration: reduceMotion ? 0 : 0.52, ease: EASE },
-                    opacity: { duration: reduceMotion ? 0 : 0.22 },
+                    layout: { duration: reduceMotion ? 0 : 0.5, ease: EASE },
+                    opacity: { duration: reduceMotion ? 0 : 0.2 },
                   }}
-                  onMouseEnter={() => openTile(i)}
-                  onFocus={() => openTile(i, true)}
+                  onMouseEnter={() => openTile(index)}
+                  onFocus={() => openTile(index, true)}
                   onBlur={(event) => {
                     if (!gridRef.current?.contains(event.relatedTarget as Node | null)) {
                       closeTile(true);
@@ -555,59 +725,34 @@ function PhotoMosaic() {
                       return;
                     }
 
-                    openTile(i, true);
+                    openTile(index, true);
                   }}
                   aria-label={`Expand photo: ${photo.alt}`}
                   aria-expanded={isActive}
                 >
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className={cn(
-                      "object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                      isActive ? "scale-[1.02]" : "scale-100",
-                    )}
-                    style={{ objectPosition: photo.objectPosition }}
-                  />
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{
+                      scale: getThumbnailScale(photo.profile, isActive),
+                    }}
+                    transition={{ duration: reduceMotion ? 0 : 0.42, ease: EASE }}
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                      className="object-cover"
+                      style={{ objectPosition: photo.objectPosition }}
+                    />
+                  </motion.div>
+
                   <motion.div
                     aria-hidden
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0),rgba(15,23,42,0.08))]"
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0),rgba(15,23,42,0.1))]"
                     animate={{ opacity: isActive ? 0.18 : 1 }}
                     transition={{ duration: reduceMotion ? 0 : 0.18 }}
                   />
-
-                  <AnimatePresence initial={false}>
-                    {isActive ? (
-                      <motion.div
-                        className="absolute inset-0 p-2 sm:p-3"
-                        initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: reduceMotion ? 0 : 0.18 }}
-                      >
-                        <div className="relative h-full w-full overflow-hidden rounded-[0.82rem]">
-                          <Image
-                            src={photo.src}
-                            alt=""
-                            fill
-                            sizes="(max-width: 768px) 75vw, 520px"
-                            className="scale-110 object-cover blur-xl opacity-25"
-                            style={{ objectPosition: photo.objectPosition }}
-                          />
-                          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_28%,rgba(15,23,42,0.16))]" />
-                          <Image
-                            src={photo.src}
-                            alt={photo.alt}
-                            fill
-                            sizes="(max-width: 768px) 75vw, 520px"
-                            className="object-contain"
-                          />
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
                 </motion.button>
               );
             })}
