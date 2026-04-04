@@ -89,7 +89,7 @@ When adding UI:
 ### 6. Treat images and logos as product assets
 
 - Keep timeline photography and brand assets in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
-- Timeline media selection currently comes from `timelinePlaceholderPhotos` in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts).
+- Timeline entries live in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts), while brand theming and logo selection live in [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx).
 - Logo rendering rules live in [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx).
 - Use `next/image` for rendered images.
 - Be careful with oversized assets and image count; the site should stay fast.

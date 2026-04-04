@@ -1,13 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, type CSSProperties } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { type CSSProperties } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { timelineEntries } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -224,8 +219,13 @@ function TimelineItem({
           </div>
 
           <div className="relative hidden md:flex justify-center">
-            <div className="absolute inset-y-0 w-px bg-[linear-gradient(180deg,rgba(148,163,184,0.08),rgba(148,163,184,0.32),rgba(148,163,184,0.08))]" />
             <div className="relative mt-10 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-white shadow-[0_16px_34px_rgba(15,23,42,0.09)]">
+              {index === 0 && (
+                <span
+                  className="absolute inset-0 animate-ping rounded-full opacity-25"
+                  style={{ backgroundColor: theme.accent }}
+                />
+              )}
               <div
                 className="h-2.5 w-2.5 rounded-full"
                 style={{ backgroundColor: theme.accent }}
@@ -251,14 +251,7 @@ function TimelineItem({
                 <LogoStage entry={entry} />
               </div>
 
-              <div
-                className="max-w-[46ch] xl:self-end"
-                style={
-                  entry.textFontFamily
-                    ? { fontFamily: entry.textFontFamily }
-                    : undefined
-                }
-              >
+              <div className="max-w-[46ch] xl:self-end">
                 <p
                   className="text-[1rem] leading-[1.15] sm:text-[1.08rem] lg:text-[1.18rem]"
                   style={{
@@ -272,17 +265,7 @@ function TimelineItem({
                 >
                   {entry.role}
                 </p>
-                <p
-                  className="mt-2.5 text-[0.94rem] leading-7 sm:text-[0.98rem] lg:text-[1.04rem]"
-                  style={{
-                    color: brandTypography.color,
-                    fontFamily: brandTypography.fontFamily,
-                    fontWeight: brandTypography.fontWeight,
-                    fontStyle: brandTypography.fontStyle,
-                    letterSpacing: brandTypography.letterSpacing,
-                    textTransform: brandTypography.textTransform,
-                  }}
-                >
+                <p className="mt-2 text-[0.88rem] leading-[1.65] text-slate-500 sm:text-[0.92rem]">
                   {entry.descriptor}
                 </p>
               </div>
@@ -295,57 +278,13 @@ function TimelineItem({
 }
 
 export function Timeline() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.85", "end 0.8"],
-  });
-
-  const spineScaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
   return (
     <section
-      ref={sectionRef}
       id="timeline"
       className="relative overflow-hidden py-24 sm:py-32"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-32 h-[30rem] w-[46rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(148,163,184,0.12),rgba(255,255,255,0)_72%)] blur-3xl"
-      />
-
       <Container className="max-w-[90rem]">
-        <Reveal distance={16}>
-          <div>
-            <p className="text-[0.7rem] font-medium uppercase tracking-[0.34em] text-gray-500">
-              Timeline
-            </p>
-          </div>
-        </Reveal>
-
         <div className="relative mt-12 sm:mt-14">
-          <motion.div
-            aria-hidden
-            className="absolute top-0 hidden w-px bg-[linear-gradient(180deg,rgba(148,163,184,0.08),rgba(148,163,184,0.4),rgba(148,163,184,0.08))] md:block lg:hidden"
-            style={{
-              left: "12.75rem",
-              height: "100%",
-              scaleY: reduceMotion ? 1 : spineScaleY,
-              transformOrigin: "top",
-            }}
-          />
-          <motion.div
-            aria-hidden
-            className="absolute top-0 hidden w-px bg-[linear-gradient(180deg,rgba(148,163,184,0.08),rgba(148,163,184,0.4),rgba(148,163,184,0.08))] lg:block"
-            style={{
-              left: "14rem",
-              height: "100%",
-              scaleY: reduceMotion ? 1 : spineScaleY,
-              transformOrigin: "top",
-            }}
-          />
-
           <ol className="space-y-8 sm:space-y-10 lg:space-y-12">
             {timelineEntries.map((entry, index) => (
               <TimelineItem

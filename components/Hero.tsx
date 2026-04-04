@@ -6,6 +6,12 @@ import { Container } from "./ui/Container";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+// Chromatic aberration snap — timeline: appear → hold blurred → snap clear
+const ANIM_DURATION = 0.82;
+const ANIM_TIMES = [0, 0.38, 0.85, 1]; // spend 47% holding the blurred state
+const ABERRATION_PX = 7;
+const HEADLINE_LINES = ["Love the", "hard stuff."] as const;
+
 function entry(delay: number, reduceMotion: boolean | null) {
   if (reduceMotion) {
     return {
@@ -38,23 +44,97 @@ export function Hero() {
           Dev Deepak
         </motion.p>
 
-        {/* Headline — spring entry, slight overshoot */}
-        <motion.h1
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={
-            reduceMotion
-              ? { duration: 0.3, delay: 0.05 }
-              : { type: "spring", stiffness: 240, damping: 22, delay: 0.08 }
-          }
-          className="mt-5 font-display text-[clamp(2.75rem,6vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em] text-gray-950"
-        >
-          Love the<br />hard stuff.
-        </motion.h1>
+        {/* Headline — chromatic aberration snap */}
+        <h1 className="mt-5 font-display text-[clamp(2.75rem,6vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em] text-gray-950">
+          {HEADLINE_LINES.map((line, i) => {
+            if (reduceMotion) {
+              return (
+                <motion.div
+                  key={line}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.05 + i * 0.08 }}
+                >
+                  {line}
+                </motion.div>
+              );
+            }
 
-        {/* Subline */}
+            const delay = 0.05 + i * 0.09;
+
+            return (
+              <div key={line} className="relative">
+                {/* Main text — in flow (gives parent its height), snaps to sharp */}
+                <motion.span
+                  className="relative z-[1] block"
+                  initial={{ opacity: 0, filter: "blur(20px)" }}
+                  animate={{
+                    opacity: [0, 0.65, 0.65, 1],
+                    filter: [
+                      "blur(20px)",
+                      "blur(14px)",
+                      "blur(14px)",
+                      "blur(0px)",
+                    ],
+                  }}
+                  transition={{
+                    duration: ANIM_DURATION,
+                    times: ANIM_TIMES,
+                    ease: ["easeOut", "linear", EASE],
+                    delay,
+                  }}
+                >
+                  {line}
+                </motion.span>
+
+                {/* Red channel — offset left, vanishes on snap */}
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 block select-none text-red-500"
+                  initial={{ opacity: 0, filter: "blur(4px)" }}
+                  animate={{
+                    opacity: [0, 0.5, 0.5, 0],
+                    x: [-ABERRATION_PX, -ABERRATION_PX, -ABERRATION_PX, 0],
+                    filter: ["blur(4px)", "blur(3px)", "blur(3px)", "blur(0px)"],
+                  }}
+                  transition={{
+                    duration: ANIM_DURATION,
+                    times: ANIM_TIMES,
+                    ease: ["easeOut", "linear", EASE],
+                    delay,
+                  }}
+                >
+                  {line}
+                </motion.span>
+
+                {/* Electric blue channel — offset right, vanishes on snap */}
+                <motion.span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 block select-none"
+                  style={{ color: "#3563ff" }}
+                  initial={{ opacity: 0, filter: "blur(4px)" }}
+                  animate={{
+                    opacity: [0, 0.45, 0.45, 0],
+                    x: [ABERRATION_PX, ABERRATION_PX, ABERRATION_PX, 0],
+                    filter: ["blur(4px)", "blur(3px)", "blur(3px)", "blur(0px)"],
+                  }}
+                  transition={{
+                    duration: ANIM_DURATION,
+                    times: ANIM_TIMES,
+                    ease: ["easeOut", "linear", EASE],
+                    delay,
+                  }}
+                >
+                  {line}
+                </motion.span>
+              </div>
+            );
+          })}
+        </h1>
+
+        {/* Subline — appears after the snap resolves */}
         <motion.p
-          {...entry(0.36, reduceMotion)}
+          {...entry(0.88, reduceMotion)}
           className="mt-6 max-w-xs text-[1rem] leading-relaxed text-gray-600 sm:text-[1.0625rem]"
         >
           Product at Engine by Starling. Previously Apple, Octopus, Episode 1 Ventures.
