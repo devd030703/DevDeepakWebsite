@@ -1,62 +1,64 @@
-import { heroStats, siteConfig } from "@/lib/content";
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 
 import { Container } from "./ui/Container";
-import { Reveal } from "./ui/Reveal";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+function entry(delay: number, reduceMotion: boolean | null) {
+  if (reduceMotion) {
+    return {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { duration: 0.3, delay },
+    };
+  }
+  return {
+    initial: { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.55, delay, ease: EASE },
+  };
+}
 
 export function Hero() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="top"
-      className="relative flex min-h-[calc(100vh-5rem)] items-center pb-12 pt-14 sm:pb-20 sm:pt-20"
+      className="flex min-h-[calc(100vh-3.5rem)] flex-col justify-center py-24"
     >
-      <Container className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-        <Reveal className="flex flex-col justify-center">
-          <p className="section-kicker">Operator</p>
-          <h1 className="mt-6 max-w-4xl font-display text-5xl font-semibold tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
-            Addicted to Hard Things.
-          </h1>
-          <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/68 sm:text-xl">
-            Currently a Product Associate at Engine by Starling working across FinCrime, Lending, Savings, Customer Service, Cards and Payments
-          </p>
+      <Container>
+        {/* Name */}
+        <motion.p
+          {...entry(0, reduceMotion)}
+          className="text-[0.65rem] font-medium uppercase tracking-[0.32em] text-gray-500"
+        >
+          Dev Deepak
+        </motion.p>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="#highlights"
-              className="inline-flex items-center justify-center rounded-full bg-electric-500 px-6 py-3 text-sm font-semibold text-white shadow-glow hover:bg-electric-400"
-            >
-              View Story
-            </a>
-            <a
-              href={siteConfig.linkedinUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:border-electric-400/50 hover:bg-white/8"
-            >
-              Connect on LinkedIn
-            </a>
-          </div>
-        </Reveal>
+        {/* Headline — spring entry, slight overshoot */}
+        <motion.h1
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 36 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={
+            reduceMotion
+              ? { duration: 0.3, delay: 0.05 }
+              : { type: "spring", stiffness: 240, damping: 22, delay: 0.08 }
+          }
+          className="mt-5 font-display text-[clamp(2.75rem,6vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em] text-gray-950"
+        >
+          Love the<br />hard stuff.
+        </motion.h1>
 
-        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-          {heroStats.map((stat, index) => (
-            <Reveal
-              key={stat.label}
-              delay={0.08 * (index + 1)}
-              className="panel overflow-hidden p-6"
-            >
-              <div className="mb-5 h-px w-16 bg-electric-400/80" />
-              <p className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                {stat.value}
-              </p>
-              <p className="mt-3 text-sm uppercase tracking-[0.26em] text-electric-200/90">
-                {stat.label}
-              </p>
-              <p className="mt-4 max-w-xs text-sm leading-6 text-white/60">
-                {stat.detail}
-              </p>
-            </Reveal>
-          ))}
-        </div>
+        {/* Subline */}
+        <motion.p
+          {...entry(0.36, reduceMotion)}
+          className="mt-6 max-w-xs text-[1rem] leading-relaxed text-gray-600 sm:text-[1.0625rem]"
+        >
+          Product at Engine by Starling. Previously Apple, Octopus, Episode 1 Ventures.
+        </motion.p>
       </Container>
     </section>
   );

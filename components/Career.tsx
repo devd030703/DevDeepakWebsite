@@ -1,4 +1,5 @@
 import { careerItems } from "@/lib/content";
+import { getCompanyStyle } from "@/lib/brandStyles";
 
 import { Container } from "./ui/Container";
 import { Reveal } from "./ui/Reveal";
@@ -29,7 +30,10 @@ export function Career() {
                     {item.mark}
                   </div>
                   <div>
-                    <p className="text-sm uppercase tracking-[0.28em] text-white/48">
+                    <p
+                      className="text-sm uppercase tracking-[0.28em]"
+                      style={getCompanyStyle(item.company)}
+                    >
                       {item.company}
                     </p>
                     <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-white">

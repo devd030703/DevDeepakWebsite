@@ -3,72 +3,48 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   --font-body: "Avenir Next", "Segoe UI", sans-serif;
   --font-display: "Avenir Next Condensed", "Avenir Next", "Arial Narrow", sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 4rem;
 }
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top right, rgba(53, 99, 255, 0.18), transparent 30%),
-    radial-gradient(circle at left center, rgba(53, 99, 255, 0.08), transparent 28%),
-    linear-gradient(180deg, #050505 0%, #090b10 45%, #050505 100%);
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent 85%);
-  opacity: 0.28;
+  background: #ffffff;
 }
 
 ::selection {
-  background: rgba(53, 99, 255, 0.35);
-  color: #ffffff;
+  background: rgba(53, 99, 255, 0.12);
+  color: #0a0a0a;
 }
 
 @layer base {
   * {
-    @apply border-white/10;
+    @apply border-black/[0.08];
   }
 
   body {
-    @apply font-body text-white antialiased;
+    @apply font-body text-gray-900 antialiased;
   }
 
   a,
   button {
-    @apply transition duration-300 ease-out;
+    @apply transition duration-200 ease-out;
   }
 }
 
 @layer components {
   .section-shell {
-    @apply relative scroll-mt-28 py-20 sm:py-24;
-  }
-
-  .panel {
-    @apply rounded-[1.75rem] border border-white/10 bg-white/[0.03] backdrop-blur-sm;
-    box-shadow:
-      0 24px 80px rgba(0, 0, 0, 0.32),
-      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    @apply relative scroll-mt-16 py-20 sm:py-24;
   }
 
   .section-kicker {
-    @apply font-display text-xs uppercase tracking-[0.35em] text-electric-300;
+    @apply font-display text-xs uppercase tracking-[0.3em] text-gray-400;
   }
 }
 

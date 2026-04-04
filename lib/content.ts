@@ -16,19 +16,19 @@ export const navigation = [
 
 export const heroStats = [
   {
-    value: "22",
-    label: "Product Associate",
-    detail: "Youngest person in Product across Starling Group",
+    value: "Youngest PM",
+    label: "Starling Group history",
+    detail: "First graduate in a 30+ cohort placed in Product. First ever placed at Engine by Starling.",
   },
   {
-    value: "King's College London",
-    label: "BSc Economics and Management",
-    detail: "Graduated in 2024. Ran London's fastest growing Entrepreneurs Society at 18 as the youngest President in our 10+ year history",
+    value: "Top Decile",
+    label: "Apple, Brompton Road",
+    detail: "35% AppleCare attachment rate. Contributed to 20% of total store revenue.",
   },
   {
-    value: "Love hard things",
-    label: "two Marathons, two Half Marathons and one Hyrox",
-    detail: "Love to keep myself busy outside of work",
+    value: "KCL",
+    label: "Economics & Management",
+    detail: "Graduated 2024. Youngest-ever President of King's Entrepreneurs Society.",
   },
 ] as const;
 
@@ -92,6 +92,105 @@ export const careerItems = [
       "Expanded the reach and consistency of events across the academic year.",
     ],
     areas: ["Leadership", "Community", "Events", "Growth"],
+  },
+] as const;
+
+const timelinePlaceholderPhotos = [
+  "/photos/IMG_0022.JPG",
+  "/photos/IMG_0111.jpeg",
+  "/photos/IMG_0360.jpeg",
+  "/photos/IMG_0547.jpeg",
+  "/photos/IMG_1105.jpeg",
+  "/photos/IMG_1201.jpeg",
+  "/photos/IMG_3055.jpeg",
+  "/photos/IMG_7880.jpeg",
+] as const;
+
+function pickTimelineMedia(startIndex: number) {
+  return [
+    timelinePlaceholderPhotos[startIndex % timelinePlaceholderPhotos.length],
+    timelinePlaceholderPhotos[(startIndex + 2) % timelinePlaceholderPhotos.length],
+    timelinePlaceholderPhotos[(startIndex + 5) % timelinePlaceholderPhotos.length],
+  ] as const;
+}
+
+export const timelineEntries = [
+  {
+    company: "Engine by Starling",
+    role: "Product Associate",
+    date: "Sept 2025 – Present",
+    descriptor: "First and only junior PM in the Starling Group's history.",
+    media: pickTimelineMedia(0),
+  },
+  {
+    company: "Engine by Starling",
+    role: "Analyst (Secondment)",
+    date: "Mar 2025 – Sept 2025",
+    descriptor: "First graduate in cohort placed at Engine, Starling's SaaS venture.",
+    media: pickTimelineMedia(1),
+  },
+  {
+    company: "Starling Bank",
+    role: "Analyst",
+    date: "Sept 2024 – Sept 2025",
+    descriptor: "First graduate in cohort of 30+ placed in Product.",
+    media: pickTimelineMedia(2),
+  },
+  {
+    company: "amicable",
+    role: "Founder's Associate",
+    date: "May 2024 – Aug 2024",
+    descriptor: "Drove 25% customer growth. Led £50M London tube campaign.",
+    media: pickTimelineMedia(3),
+  },
+  {
+    company: "Episode 1 Ventures",
+    role: "Visiting Analyst",
+    date: "Sept 2023 – Feb 2024",
+    descriptor: "Europe's top decile seed fund. First backers of Shazam and Zoopla.",
+    media: pickTimelineMedia(4),
+  },
+  {
+    company: "Starling Bank",
+    role: "Vendor Management Intern",
+    date: "Jul 2023 – Aug 2023",
+    descriptor: "Managed compliance and onboarding for 200+ vendors.",
+    media: pickTimelineMedia(5),
+  },
+  {
+    company: "Apple",
+    role: "Product Specialist, Core NSO Team",
+    date: "Jul 2022 – Jun 2023",
+    descriptor: "Flagship Brompton Road launch. Top decile. 35% AppleCare attachment.",
+    media: pickTimelineMedia(6),
+  },
+  {
+    company: "Kraken",
+    role: "Growth & Product Intern",
+    date: "Jul 2022 – Sept 2022",
+    descriptor: "Modelled 20+ CRM providers. Shaped strategic growth roadmap.",
+    media: pickTimelineMedia(7),
+  },
+  {
+    company: "King's College London",
+    role: "BSc Economics & Management",
+    date: "Sep 2021 – Jun 2024",
+    descriptor: "Upper Second-Class Honours. Chairman of King's Entrepreneurs Society.",
+    media: pickTimelineMedia(8),
+  },
+  {
+    company: "Highgate School",
+    role: "A-Levels",
+    date: "Sep 2019 – Jul 2021",
+    descriptor: "A*A*A*A in Maths, Further Maths, Economics, Computer Science.",
+    media: pickTimelineMedia(9),
+  },
+  {
+    company: "Nower Hill High School",
+    role: "GCSEs",
+    date: "Sep 2016 – Jul 2019",
+    descriptor: "9 Grade 9s.",
+    media: pickTimelineMedia(10),
   },
 ] as const;
 
