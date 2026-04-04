@@ -1,16 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import {
-  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
 
-import { timelineEntries, type TimelineMedia } from "@/lib/content";
+import { timelineEntries } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Container } from "./ui/Container";
 import { Reveal } from "./ui/Reveal";
@@ -18,15 +17,9 @@ import { Reveal } from "./ui/Reveal";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 type TimelineEntry = (typeof timelineEntries)[number];
-type ActivePhoto = TimelineMedia & {
-  company: string;
-  role: string;
-};
 
 type EntryTheme = {
   accent: string;
-  border: string;
-  shadow: string;
 };
 
 type LogoConfig = {
@@ -49,51 +42,17 @@ type BrandTypography = {
 
 const DEFAULT_THEME: EntryTheme = {
   accent: "#475569",
-  border: "rgba(71, 85, 105, 0.14)",
-  shadow: "rgba(15, 23, 42, 0.08)",
 };
 
 const ENTRY_THEMES: Record<string, EntryTheme> = {
-  "Engine by Starling": {
-    accent: "#0f766e",
-    border: "rgba(15, 118, 110, 0.18)",
-    shadow: "rgba(15, 118, 110, 0.1)",
-  },
-  "Starling Bank": {
-    accent: "#0f9f8c",
-    border: "rgba(15, 159, 140, 0.18)",
-    shadow: "rgba(15, 159, 140, 0.1)",
-  },
-  amicable: {
-    accent: "#8b5cf6",
-    border: "rgba(139, 92, 246, 0.18)",
-    shadow: "rgba(139, 92, 246, 0.1)",
-  },
-  "Episode 1 Ventures": {
-    accent: "#b45309",
-    border: "rgba(180, 83, 9, 0.18)",
-    shadow: "rgba(180, 83, 9, 0.1)",
-  },
-  Apple: {
-    accent: "#111827",
-    border: "rgba(15, 23, 42, 0.14)",
-    shadow: "rgba(15, 23, 42, 0.08)",
-  },
-  Kraken: {
-    accent: "#2563eb",
-    border: "rgba(37, 99, 235, 0.16)",
-    shadow: "rgba(37, 99, 235, 0.1)",
-  },
-  "King's College London": {
-    accent: "#dc2626",
-    border: "rgba(220, 38, 38, 0.18)",
-    shadow: "rgba(220, 38, 38, 0.1)",
-  },
-  "Highgate School": {
-    accent: "#053776",
-    border: "rgba(5, 55, 118, 0.16)",
-    shadow: "rgba(5, 55, 118, 0.1)",
-  },
+  "Engine by Starling": { accent: "#0f766e" },
+  "Starling Bank": { accent: "#0f9f8c" },
+  amicable: { accent: "#8b5cf6" },
+  "Episode 1 Ventures": { accent: "#b45309" },
+  Apple: { accent: "#111827" },
+  Kraken: { accent: "#2563eb" },
+  "King's College London": { accent: "#dc2626" },
+  "Highgate School": { accent: "#053776" },
 };
 
 const DEFAULT_BRAND_TYPOGRAPHY: BrandTypography = {
@@ -205,50 +164,6 @@ const LOGO_CONFIG: Record<string, LogoConfig> = {
   },
 };
 
-const COLLAGE_LAYOUTS = [
-  {
-    wrapper: "grid-cols-6 auto-rows-[6.5rem] sm:auto-rows-[7.5rem] lg:auto-rows-[8.25rem]",
-    featuredIndex: 0,
-    items: [
-      "col-span-6 sm:col-span-4 sm:row-span-2",
-      "col-span-3 sm:col-span-2 sm:translate-y-6 lg:translate-y-8",
-      "col-span-3 sm:col-span-2 sm:translate-y-2",
-    ],
-  },
-  {
-    wrapper: "grid-cols-6 auto-rows-[6.5rem] sm:auto-rows-[7.5rem] lg:auto-rows-[8.25rem]",
-    featuredIndex: 1,
-    items: [
-      "col-span-3 sm:col-span-2 sm:translate-y-8 lg:translate-y-10",
-      "col-span-6 sm:col-span-4 sm:row-span-2",
-      "col-span-3 sm:col-span-2 sm:-translate-y-2 lg:-translate-y-4",
-    ],
-  },
-  {
-    wrapper: "grid-cols-6 auto-rows-[6.5rem] sm:auto-rows-[7.5rem] lg:auto-rows-[8.25rem]",
-    featuredIndex: 0,
-    items: [
-      "col-span-6 sm:col-span-3 sm:row-span-2",
-      "col-span-3 sm:col-span-3 sm:translate-y-6 lg:translate-y-8",
-      "col-span-3 sm:col-span-3 sm:-translate-y-3 lg:-translate-y-4",
-    ],
-  },
-] as const;
-
-function orderMediaForLayout(media: readonly TimelineMedia[], featuredIndex: number) {
-  const primaryIndex = media.findIndex((photo) => /_1\.[a-z]+$/i.test(photo.src));
-
-  if (primaryIndex <= -1 || primaryIndex === featuredIndex) {
-    return [...media];
-  }
-
-  const ordered = [...media];
-  const [primaryPhoto] = ordered.splice(primaryIndex, 1);
-  ordered.splice(featuredIndex, 0, primaryPhoto);
-
-  return ordered;
-}
-
 function getEntryTheme(company: string) {
   return ENTRY_THEMES[company] ?? DEFAULT_THEME;
 }
@@ -282,100 +197,12 @@ function LogoStage({ entry }: { entry: TimelineEntry }) {
   );
 }
 
-function TimelineCollage({
-  entry,
-  index,
-  theme,
-  onOpenPhoto,
-}: {
-  entry: TimelineEntry;
-  index: number;
-  theme: EntryTheme;
-  onOpenPhoto: (photo: ActivePhoto) => void;
-}) {
-  const collageRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: collageRef,
-    offset: ["start end", "end start"],
-  });
-
-  const layout = COLLAGE_LAYOUTS[index % COLLAGE_LAYOUTS.length];
-  const orderedMedia = orderMediaForLayout(entry.media, layout.featuredIndex);
-  const imageOffsets = [
-    useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [18, -18]),
-    useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [10, -10]),
-    useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [14, -14]),
-  ];
-
-  return (
-    <motion.div
-      ref={collageRef}
-      className={cn("relative grid gap-3 sm:gap-4", layout.wrapper)}
-    >
-      {orderedMedia.map((photo, photoIndex) => (
-        <motion.figure
-          key={`${entry.company}-${photo.src}`}
-          whileHover={
-            reduceMotion
-              ? undefined
-              : {
-                  scale: 1.018,
-                  rotate: photoIndex === 1 ? 0.35 : photoIndex === 2 ? -0.35 : 0.45,
-                }
-          }
-          transition={{ duration: 0.45, ease: EASE }}
-          className={cn(
-            "group/photo relative overflow-hidden rounded-[1.55rem] border bg-slate-100",
-            layout.items[photoIndex],
-          )}
-          style={{
-            y: imageOffsets[photoIndex],
-            borderColor: theme.border,
-            boxShadow: `0 18px 40px ${theme.shadow}`,
-          }}
-        >
-          <button
-            type="button"
-            onClick={() =>
-              onOpenPhoto({
-                ...photo,
-                company: entry.company,
-                role: entry.role,
-              })
-            }
-            className="absolute inset-0 block h-full w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-950/70 focus-visible:ring-offset-2"
-            aria-label={`Expand photo from ${entry.company}`}
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 55vw, 34vw"
-              className="object-cover transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/photo:scale-[1.04]"
-              style={{ objectPosition: photo.objectPosition ?? "center" }}
-            />
-          </button>
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(15,23,42,0.18))]" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-3 sm:p-4">
-            <span className="rounded-full border border-white/35 bg-white/14 px-2.5 py-1 text-[0.62rem] font-medium uppercase tracking-[0.24em] text-white/92 backdrop-blur-md">
-              Open
-            </span>
-          </div>
-        </motion.figure>
-      ))}
-    </motion.div>
-  );
-}
-
 function TimelineItem({
   entry,
   index,
-  onOpenPhoto,
 }: {
   entry: TimelineEntry;
   index: number;
-  onOpenPhoto: (photo: ActivePhoto) => void;
 }) {
   const reduceMotion = useReducedMotion();
   const theme = getEntryTheme(entry.company);
@@ -413,68 +240,52 @@ function TimelineItem({
           >
             <div
               aria-hidden
-              className="pointer-events-none absolute -right-12 top-2 h-32 w-32 rounded-full blur-3xl"
-              style={{
-                background: `radial-gradient(circle, ${theme.accent}14 0%, rgba(255, 255, 255, 0) 72%)`,
-              }}
-            />
-            <div
-              aria-hidden
               className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{
                 background: `linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, ${theme.accent}55 50%, rgba(255, 255, 255, 0) 100%)`,
               }}
             />
 
-            <div className="relative flex flex-col gap-7 sm:gap-8">
-              <div className="grid gap-3 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)] xl:items-end xl:gap-9">
-                <div>
-                  <LogoStage entry={entry} />
-                </div>
-
-                <div
-                  className="max-w-[46ch] xl:self-end"
-                  style={
-                    entry.textFontFamily
-                      ? { fontFamily: entry.textFontFamily }
-                      : undefined
-                  }
-                >
-                  <p
-                    className="text-[1rem] leading-[1.15] sm:text-[1.08rem] lg:text-[1.18rem]"
-                    style={{
-                      color: brandTypography.color,
-                      fontFamily: brandTypography.fontFamily,
-                      fontWeight: brandTypography.fontWeight,
-                      fontStyle: brandTypography.fontStyle,
-                      letterSpacing: brandTypography.letterSpacing,
-                      textTransform: brandTypography.textTransform,
-                    }}
-                  >
-                    {entry.role}
-                  </p>
-                  <p
-                    className="mt-2.5 text-[0.94rem] leading-7 sm:text-[0.98rem] lg:text-[1.04rem]"
-                    style={{
-                      color: brandTypography.color,
-                      fontFamily: brandTypography.fontFamily,
-                      fontWeight: brandTypography.fontWeight,
-                      fontStyle: brandTypography.fontStyle,
-                      letterSpacing: brandTypography.letterSpacing,
-                      textTransform: brandTypography.textTransform,
-                    }}
-                  >
-                    {entry.descriptor}
-                  </p>
-                </div>
+            <div className="grid gap-3 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.1fr)] xl:items-end xl:gap-9">
+              <div>
+                <LogoStage entry={entry} />
               </div>
 
-              <TimelineCollage
-                entry={entry}
-                index={index}
-                theme={theme}
-                onOpenPhoto={onOpenPhoto}
-              />
+              <div
+                className="max-w-[46ch] xl:self-end"
+                style={
+                  entry.textFontFamily
+                    ? { fontFamily: entry.textFontFamily }
+                    : undefined
+                }
+              >
+                <p
+                  className="text-[1rem] leading-[1.15] sm:text-[1.08rem] lg:text-[1.18rem]"
+                  style={{
+                    color: brandTypography.color,
+                    fontFamily: brandTypography.fontFamily,
+                    fontWeight: brandTypography.fontWeight,
+                    fontStyle: brandTypography.fontStyle,
+                    letterSpacing: brandTypography.letterSpacing,
+                    textTransform: brandTypography.textTransform,
+                  }}
+                >
+                  {entry.role}
+                </p>
+                <p
+                  className="mt-2.5 text-[0.94rem] leading-7 sm:text-[0.98rem] lg:text-[1.04rem]"
+                  style={{
+                    color: brandTypography.color,
+                    fontFamily: brandTypography.fontFamily,
+                    fontWeight: brandTypography.fontWeight,
+                    fontStyle: brandTypography.fontStyle,
+                    letterSpacing: brandTypography.letterSpacing,
+                    textTransform: brandTypography.textTransform,
+                  }}
+                >
+                  {entry.descriptor}
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -483,87 +294,8 @@ function TimelineItem({
   );
 }
 
-function PhotoLightbox({
-  photo,
-  onClose,
-}: {
-  photo: ActivePhoto | null;
-  onClose: () => void;
-}) {
-  useEffect(() => {
-    if (!photo) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [photo, onClose]);
-
-  return (
-    <AnimatePresence>
-      {photo ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/82 px-4 py-6 backdrop-blur-md sm:px-8"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 18, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
-            transition={{ duration: 0.28, ease: EASE }}
-            className="relative w-full max-w-6xl"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={onClose}
-              className="absolute right-3 top-3 z-10 rounded-full border border-white/15 bg-black/45 px-3 py-1.5 text-xs font-medium uppercase tracking-[0.24em] text-white backdrop-blur-md transition hover:bg-black/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-            >
-              Close
-            </button>
-
-            <div className="overflow-hidden rounded-[1.75rem] border border-white/12 bg-black/30 shadow-[0_30px_100px_rgba(15,23,42,0.55)]">
-              <div className="relative aspect-[4/5] max-h-[82vh] w-full sm:aspect-[16/10]">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="100vw"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-
-            <div className="mt-3 flex flex-wrap items-center gap-3 text-white/88">
-              <p className="text-sm font-medium tracking-[0.02em]">{photo.company}</p>
-              <p className="text-sm text-white/68">{photo.role}</p>
-            </div>
-          </motion.div>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
-  );
-}
-
 export function Timeline() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activePhoto, setActivePhoto] = useState<ActivePhoto | null>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -578,10 +310,6 @@ export function Timeline() {
       id="timeline"
       className="relative overflow-hidden py-24 sm:py-32"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(circle_at_top,rgba(53,99,255,0.12),rgba(255,255,255,0)_68%)]"
-      />
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-32 h-[30rem] w-[46rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(148,163,184,0.12),rgba(255,255,255,0)_72%)] blur-3xl"
@@ -624,14 +352,11 @@ export function Timeline() {
                 key={`${entry.company}-${entry.role}`}
                 entry={entry}
                 index={index}
-                onOpenPhoto={setActivePhoto}
               />
             ))}
           </ol>
         </div>
       </Container>
-
-      <PhotoLightbox photo={activePhoto} onClose={() => setActivePhoto(null)} />
     </section>
   );
 }
