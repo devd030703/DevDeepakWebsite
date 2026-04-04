@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { type CSSProperties } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, type CSSProperties } from "react";
+import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
 
 import { timelineEntries } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -277,6 +277,86 @@ function TimelineItem({
   );
 }
 
+const STRIP_PHOTOS = [
+  { src: "/photos/Engine_Product_Associate_1.PNG", alt: "Engine by Starling", objectPosition: "center 26%" },
+  { src: "/photos/Engine_Product_Associate_2.jpeg", alt: "Engine by Starling team", objectPosition: "center 38%" },
+  { src: "/photos/Starling_Bank_1.jpeg", alt: "Starling Bank", objectPosition: "center 22%" },
+  { src: "/photos/Engine_Analyst_1.jpeg", alt: "Engine Analyst secondment", objectPosition: "center 24%" },
+  { src: "/photos/Starling_Bank_2.jpeg", alt: "Starling Bank team", objectPosition: "center 36%" },
+  { src: "/photos/Engine_Product_Associate_3.jpeg", alt: "Engine by Starling", objectPosition: "center 32%" },
+  { src: "/photos/Engine_Analyst_2.jpeg", alt: "Engine Analyst", objectPosition: "center 34%" },
+  { src: "/photos/Starling_Bank_3.jpeg", alt: "Starling Bank", objectPosition: "center 28%" },
+  { src: "/photos/King_College_London_1.jpeg", alt: "King's College London", objectPosition: "center 22%" },
+  { src: "/photos/Engine_Analyst_4.png", alt: "Engine Analyst presentation", objectPosition: "center 30%" },
+] as const;
+
+// Each photo's default span in the 4-column mosaic grid
+const MOSAIC_LAYOUT = [
+  { cols: 2, rows: 2 }, // large square
+  { cols: 1, rows: 1 }, // small
+  { cols: 1, rows: 2 }, // tall
+  { cols: 1, rows: 1 }, // small
+  { cols: 2, rows: 1 }, // wide
+  { cols: 1, rows: 2 }, // tall
+  { cols: 1, rows: 1 }, // small
+  { cols: 2, rows: 1 }, // wide
+  { cols: 1, rows: 1 }, // small
+  { cols: 4, rows: 1 }, // full-width banner
+] as const;
+
+function PhotoMosaic() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className="mt-16 sm:mt-20">
+      <LayoutGroup>
+        <div
+          className="grid grid-cols-4 gap-2"
+          style={{ gridAutoRows: "120px" }}
+        >
+          {STRIP_PHOTOS.map((photo, i) => {
+            const isActive = activeIndex === i;
+            const { cols, rows } = MOSAIC_LAYOUT[i];
+
+            return (
+              <motion.div
+                key={photo.src}
+                layout
+                className="relative cursor-pointer overflow-hidden rounded-xl bg-white"
+                style={{
+                  gridColumn: `span ${isActive ? 4 : cols}`,
+                  gridRow: `span ${isActive ? 4 : rows}`,
+                }}
+                transition={{
+                  layout: { duration: reduceMotion ? 0 : 0.55, ease: EASE },
+                }}
+                onMouseEnter={() => setActiveIndex(i)}
+                onMouseLeave={() => setActiveIndex(null)}
+                onClick={() => setActiveIndex(isActive ? null : i)}
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className={cn(
+                    "transition-none",
+                    isActive ? "object-contain" : "object-cover",
+                  )}
+                  style={{
+                    objectPosition: isActive ? "center" : photo.objectPosition,
+                  }}
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+      </LayoutGroup>
+    </div>
+  );
+}
+
 export function Timeline() {
   return (
     <section
@@ -295,6 +375,8 @@ export function Timeline() {
             ))}
           </ol>
         </div>
+
+        <PhotoMosaic />
       </Container>
     </section>
   );

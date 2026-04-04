@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="Cleaned up the timeline. Removed the photos to make it more minimal again">
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="cleaned up the site and removed unccessary pictures">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.impeccable.md" beforeDir="false" afterPath="$PROJECT_DIR$/.impeccable.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Timeline.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/content.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/content.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/05bff0c1-7e74-4103-a5c7-79208c1c7932.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_0022.JPG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_0111.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_0360.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_0547.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_1105.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_1201.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_3055.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photos/IMG_7880.jpeg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775303604798</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="cleaned up the site and removed unccessary pictures">
+      <option name="closed" value="true" />
+      <created>1775304697606</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1775304697606</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,14 +294,15 @@
     <MESSAGE value="Updated README.md and AGENT.md" />
     <MESSAGE value="delete old photos and add new photos. Removed site header as it was pointless" />
     <MESSAGE value="Cleaned up the timeline. Removed the photos to make it more minimal again" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up the timeline. Removed the photos to make it more minimal again" />
+    <MESSAGE value="cleaned up the site and removed unccessary pictures" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaned up the site and removed unccessary pictures" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/components/Timeline.tsx</url>
-          <line>336</line>
+          <line>363</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
