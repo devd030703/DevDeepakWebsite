@@ -4,14 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="cleaned up some spacing stuff" />
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="Updated README.md and AGENT.md">
+      <change afterPath="$PROJECT_DIR$/public/photos/Engine_Analyst_1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Engine_Analyst_2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Engine_Analyst_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Engine_Product_Associate_1.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Engine_Product_Associate_2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Engine_Product_Associate_3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Starling_Bank_1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/photos/Starling_Bank_2.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Timeline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/content.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/content.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/photos/IMG_1201.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/photos/Starling_Bank_3.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/photos/IMG_7880.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/photos/King_College_London_1.jpeg" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="42" />
+    <option name="cachedIndexableFilesCount" value="47" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,6 +42,9 @@
     &quot;accountId&quot;: &quot;cf77ebb7-1600-4ac3-8e24-132f21aa8a0e&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/next/dist/lib/metadata/types/metadata-interface.d.ts" root0="SKIP_INSPECTION" />
+  </component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -40,32 +57,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/devdeepak/Desktop/DevDeepakWebsite/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.Next.js: debug client-side.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "javascript.preferred.runtime.type.id": "node",
+    "js.debugger.nextJs.config.created.client": "true",
+    "js.debugger.nextJs.config.created.server": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/Users/devdeepak/Desktop/DevDeepakWebsite/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/photos" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/photos" />
     </key>
   </component>
@@ -87,7 +112,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.31033.133" />
+        <option value="bundled-js-predefined-d6986cc7102b-3bd3a6803838-JavaScript-WS-261.22158.274" />
       </set>
     </attachedChunks>
   </component>
@@ -100,6 +125,7 @@
       <updated>1773595345887</updated>
       <workItem from="1773595346920" duration="190000" />
       <workItem from="1773595692261" duration="6366000" />
+      <workItem from="1775273386976" duration="2236000" />
     </task>
     <task id="LOCAL-00001" summary="started my website">
       <option name="closed" value="true" />
@@ -229,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775266410827</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Updated README.md and AGENT.md">
+      <option name="closed" value="true" />
+      <created>1775273674294</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1775273674294</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,7 +285,8 @@
     <MESSAGE value="delete unused files" />
     <MESSAGE value="updated typography and colours" />
     <MESSAGE value="cleaned up some spacing stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaned up some spacing stuff" />
+    <MESSAGE value="Updated README.md and AGENT.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md and AGENT.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -263,8 +298,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/components/Timeline.tsx</url>
-          <line>493</line>
-          <properties lambdaOrdinal="-1" />
+          <line>628</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
