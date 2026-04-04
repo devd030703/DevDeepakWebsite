@@ -17,6 +17,15 @@ const timelinePlaceholderPhotos = [
   "/photos/IMG_7880.jpeg",
 ] as const;
 
+type TimelineEntry = {
+  company: string;
+  role: string;
+  date: string;
+  descriptor: string;
+  media: readonly string[];
+  textFontFamily?: string;
+};
+
 function pickTimelineMedia(startIndex: number) {
   return [
     timelinePlaceholderPhotos[startIndex % timelinePlaceholderPhotos.length],
@@ -25,12 +34,13 @@ function pickTimelineMedia(startIndex: number) {
   ] as const;
 }
 
-export const timelineEntries = [
+export const timelineEntries: readonly TimelineEntry[] = [
   {
     company: "Engine by Starling",
     role: "Product Associate",
     date: "Sept 2025 – Present",
     descriptor: "First and only junior PM in the Starling Group's history.",
+    textFontFamily: '"Universal Sans", sans-serif',
     media: pickTimelineMedia(0),
   },
   {
@@ -38,6 +48,7 @@ export const timelineEntries = [
     role: "Analyst (Secondment)",
     date: "Mar 2025 – Sept 2025",
     descriptor: "First graduate in cohort placed at Engine, Starling's SaaS venture.",
+    textFontFamily: '"Universal Sans", sans-serif',
     media: pickTimelineMedia(1),
   },
   {
@@ -45,6 +56,7 @@ export const timelineEntries = [
     role: "Analyst",
     date: "Sept 2024 – Sept 2025",
     descriptor: "First graduate in cohort of 30+ placed in Product.",
+    textFontFamily: '"Avantt", "Inter Tight", sans-serif',
     media: pickTimelineMedia(2),
   },
   {
@@ -52,6 +64,7 @@ export const timelineEntries = [
     role: "Founder's Associate",
     date: "May 2024 – Aug 2024",
     descriptor: "Drove 25% customer growth. Led £50M London tube campaign.",
+    textFontFamily: 'Solomon, Arial, sans-serif',
     media: pickTimelineMedia(3),
   },
   {
@@ -59,6 +72,7 @@ export const timelineEntries = [
     role: "Visiting Analyst",
     date: "Sept 2023 – Feb 2024",
     descriptor: "Europe's top decile seed fund. First backers of Shazam and Zoopla.",
+    textFontFamily: '"Fk Grotesk Neue", sans-serif',
     media: pickTimelineMedia(4),
   },
   {
@@ -66,6 +80,7 @@ export const timelineEntries = [
     role: "Vendor Management Intern",
     date: "Jul 2023 – Aug 2023",
     descriptor: "Managed compliance and onboarding for 200+ vendors.",
+    textFontFamily: '"Avantt", "Inter Tight", sans-serif',
     media: pickTimelineMedia(5),
   },
   {
@@ -73,6 +88,8 @@ export const timelineEntries = [
     role: "Product Specialist, Core NSO Team",
     date: "Jul 2022 – Jun 2023",
     descriptor: "Flagship Brompton Road launch. Top decile. 35% AppleCare attachment.",
+    textFontFamily:
+      '"SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif',
     media: pickTimelineMedia(6),
   },
   {
@@ -80,13 +97,16 @@ export const timelineEntries = [
     role: "Growth & Product Intern",
     date: "Jul 2022 – Sept 2022",
     descriptor: "Modelled 20+ CRM providers. Shaped strategic growth roadmap.",
+    textFontFamily: '"Chromatophore", Helvetica, sans-serif',
     media: pickTimelineMedia(7),
   },
   {
     company: "King's College London",
     role: "BSc Economics & Management",
     date: "Sep 2021 – Jun 2024",
-    descriptor: "Upper Second-Class Honours. Chairman of King's Entrepreneurs Society.",
+    descriptor: "President & Chairman of King's Entrepreneurs Society.",
+    textFontFamily:
+      '"KingsBureauGrotFiveOne", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
     media: pickTimelineMedia(8),
   },
   {

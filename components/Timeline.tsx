@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import {
   motion,
   useReducedMotion,
@@ -31,6 +31,15 @@ type LogoConfig = {
   height?: number;
   imageClassName?: string;
   fallbackWordmark?: string;
+};
+
+type BrandTypography = {
+  color: string;
+  fontFamily?: string;
+  fontWeight?: CSSProperties["fontWeight"];
+  fontStyle?: CSSProperties["fontStyle"];
+  letterSpacing?: string;
+  textTransform?: CSSProperties["textTransform"];
 };
 
 const DEFAULT_THEME: EntryTheme = {
@@ -79,6 +88,53 @@ const ENTRY_THEMES: Record<string, EntryTheme> = {
     accent: "#053776",
     border: "rgba(5, 55, 118, 0.16)",
     shadow: "rgba(5, 55, 118, 0.1)",
+  },
+};
+
+const DEFAULT_BRAND_TYPOGRAPHY: BrandTypography = {
+  color: "#0f172a",
+  fontWeight: 600,
+  letterSpacing: "-0.035em",
+};
+
+const BRAND_TYPOGRAPHY: Record<string, BrandTypography> = {
+  "Engine by Starling": {
+    color: "#111111",
+    fontFamily: '"Universal Sans", sans-serif',
+    fontWeight: 700,
+    letterSpacing: "-0.06em",
+  },
+  "Starling Bank": {
+    color: "#321E37",
+    fontFamily: '"Avantt", "Inter Tight", sans-serif',
+    fontWeight: 650,
+    letterSpacing: "-0.05em",
+  },
+  amicable: {
+    color: "#17130f",
+    fontFamily: "Solomon, Arial, sans-serif",
+    fontWeight: 400,
+    letterSpacing: "-0.02em",
+  },
+  Kraken: {
+    color: "#100030",
+    fontFamily: "Chromatophore, Helvetica, sans-serif",
+    fontWeight: 700,
+    letterSpacing: "-0.035em",
+  },
+  "King's College London": {
+    color: "#0a2d50",
+    fontFamily:
+      '"KingsBureauGrotFiveOne", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
+    fontWeight: 400,
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+  },
+  "Highgate School": {
+    color: "#053776",
+    fontWeight: 600,
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
   },
 };
 
@@ -173,6 +229,10 @@ const COLLAGE_LAYOUTS = [
 
 function getEntryTheme(company: string) {
   return ENTRY_THEMES[company] ?? DEFAULT_THEME;
+}
+
+function getBrandTypography(company: string) {
+  return BRAND_TYPOGRAPHY[company] ?? DEFAULT_BRAND_TYPOGRAPHY;
 }
 
 function LogoStage({ entry }: { entry: TimelineEntry }) {
@@ -273,6 +333,7 @@ function TimelineItem({
 }) {
   const reduceMotion = useReducedMotion();
   const theme = getEntryTheme(entry.company);
+  const brandTypography = getBrandTypography(entry.company);
 
   return (
     <li className="relative">
@@ -325,11 +386,38 @@ function TimelineItem({
                   <LogoStage entry={entry} />
                 </div>
 
-                <div className="max-w-[46ch] xl:self-end">
-                  <p className="text-lg font-medium leading-tight text-slate-700 sm:text-xl lg:text-[1.35rem]">
+                <div
+                  className="max-w-[46ch] xl:self-end"
+                  style={
+                    entry.textFontFamily
+                      ? { fontFamily: entry.textFontFamily }
+                      : undefined
+                  }
+                >
+                  <p
+                    className="text-lg leading-tight sm:text-xl lg:text-[1.35rem]"
+                    style={{
+                      color: brandTypography.color,
+                      fontFamily: brandTypography.fontFamily,
+                      fontWeight: brandTypography.fontWeight,
+                      fontStyle: brandTypography.fontStyle,
+                      letterSpacing: brandTypography.letterSpacing,
+                      textTransform: brandTypography.textTransform,
+                    }}
+                  >
                     {entry.role}
                   </p>
-                  <p className="mt-4 text-[1rem] leading-8 text-slate-600 sm:text-[1.05rem] lg:text-[1.12rem]">
+                  <p
+                    className="mt-4 text-[1rem] leading-8 sm:text-[1.05rem] lg:text-[1.12rem]"
+                    style={{
+                      color: brandTypography.color,
+                      fontFamily: brandTypography.fontFamily,
+                      fontWeight: brandTypography.fontWeight,
+                      fontStyle: brandTypography.fontStyle,
+                      letterSpacing: brandTypography.letterSpacing,
+                      textTransform: brandTypography.textTransform,
+                    }}
+                  >
                     {entry.descriptor}
                   </p>
                 </div>

@@ -19,10 +19,7 @@ export const metadata: Metadata = {
     "Product",
     "Engine by Starling",
     "Starling Bank",
-    "personal website",
-    "leadership",
-    "running",
-    "boxing",
+    "personal website"
   ],
   openGraph: {
     title: siteConfig.name,
