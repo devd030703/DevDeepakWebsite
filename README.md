@@ -1,6 +1,6 @@
 # Dev Deepak Website
 
-Personal website for Dev Deepak, built as a single-page portfolio on Next.js. The site highlights career experience, education, athletics, mentoring, and contact details with a polished editorial-style UI.
+Personal website for Dev Deepak, built as a focused single-page Next.js app. The current version is intentionally minimal: a strong hero followed by a visual career and education timeline.
 
 ## Stack
 
@@ -10,19 +10,14 @@ Personal website for Dev Deepak, built as a single-page portfolio on Next.js. Th
 - Tailwind CSS
 - Framer Motion
 
-## What’s In The Site
+## Current Site Structure
 
-The homepage is composed of these sections:
+The homepage is composed of two primary sections:
 
 - Hero
-- Photo gallery
-- Highlights
-- Career
-- Story timeline
-- Beyond work
-- Contact
+- Timeline
 
-Most of the written content lives in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts). Photos are loaded automatically from [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
+Core content and metadata live in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts). Timeline media and brand assets live in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
 
 ## Local Development
 
@@ -60,65 +55,54 @@ npm run lint
 
 ## Content Updates
 
-### Update text content
+### Update site metadata and timeline entries
 
 Edit [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts).
 
-This file controls:
+This file currently controls:
 
-- Site metadata and LinkedIn URL
-- Header navigation
-- Hero stats
-- Highlights
-- Career cards
-- Education timeline
-- Athletics, mentoring, and impact data
+- Site name, description, canonical URL, and LinkedIn URL
+- Timeline dates, roles, descriptors, and brand-specific font settings
+- Timeline image selection through the placeholder media list
 
-### Update photos
+### Update images and logos
 
-Add or replace images in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
+Add or replace assets in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
 
-Supported formats:
+This directory currently contains:
 
-- `.jpg`
-- `.jpeg`
-- `.png`
-- `.webp`
-- `.gif`
-- `.avif`
+- Timeline placeholder photography
+- Company and school logo assets used by the timeline
 
-The gallery reads that folder at runtime and renders every supported image file automatically.
+The timeline does not auto-discover every file in the directory. Image usage is driven by the arrays and paths defined in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts) and [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx).
 
 ## Project Structure
 
 ```text
 app/
-  layout.tsx        Global layout and metadata
+  layout.tsx        Global layout, metadata, and font loading
   page.tsx          Homepage composition
-  globals.css       Global styles
+  globals.css       Global styles and font tokens
 components/
-  Hero.tsx
-  Photos.tsx
-  Highlights.tsx
-  Career.tsx
-  Timeline.tsx
-  Athletics.tsx
-  Contact.tsx
-  SiteHeader.tsx
-  ui/               Shared layout and animation primitives
+  Hero.tsx          Intro hero section
+  Timeline.tsx      Visual timeline with logos and image collages
+  ui/
+    Container.tsx   Shared page-width wrapper
+    Reveal.tsx      Shared scroll-in animation wrapper
 lib/
-  content.ts        Site content
+  content.ts        Site metadata and timeline content
   utils.ts          Utility helpers
 public/
-  photos/           Portfolio images
+  photos/           Images and logo assets used by the timeline
 ```
 
 ## Configuration Notes
 
-- `NEXT_PUBLIC_SITE_URL` can be set to override the default canonical site URL used in metadata.
-- The site uses `reactStrictMode` in [`next.config.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/next.config.ts).
-- Scroll-in animations are implemented in [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx) with reduced-motion support.
+- `NEXT_PUBLIC_SITE_URL` can override the default canonical URL used in metadata.
+- Global metadata is defined in [`app/layout.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/layout.tsx).
+- Shared font tokens are defined in [`app/globals.css`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/globals.css) and mapped into Tailwind in [`tailwind.config.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/tailwind.config.ts).
+- Scroll and reveal motion is implemented with Framer Motion in [`components/Hero.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Hero.tsx), [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx), and [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx).
 
 ## Deployment
 
-This project is set up like a standard Next.js application and can be deployed to Vercel or any platform that supports Next.js.
+This project is a standard Next.js application and can be deployed to Vercel or any platform that supports Next.js.

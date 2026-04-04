@@ -2,31 +2,31 @@
 
 ## Purpose
 
-This repository is a personal brand website for Dev Deepak. It is not a generic marketing site and it is not a blog platform. Every change should strengthen one of these outcomes:
+This repository is Dev Deepak's personal website. It is a tightly scoped brand and credibility surface, not a general content platform. Every change should improve at least one of these outcomes:
 
-- make Dev look more credible, differentiated, and high-agency
+- make Dev look credible, differentiated, and high-agency
 - make the story easier to scan and easier to trust
-- keep the site fast, polished, and production-ready on mobile and desktop
+- keep the site polished, fast, and strong on mobile and desktop
 
-The quality bar is closer to a sharp founder/product portfolio than a template-driven resume site.
+The quality bar is closer to a deliberate editorial portfolio than a template resume site.
 
 ## Product Principles
 
-- Preserve a strong point of view. The site should feel ambitious, disciplined, and editorial, not corporate or generic.
-- Prefer specificity over hype. Concrete achievements, real numbers, and crisp language beat vague claims every time.
-- Protect trust. Do not add inflated claims, unverifiable metrics, or copy that sounds AI-generated.
-- Optimize for skim value. Most visitors will scan headline, highlights, career, timeline, beyond-work, and contact in one pass.
-- Respect the single-page narrative. The page is a deliberate sequence, not a loose collection of blocks.
+- Preserve a point of view. The site should feel intentional and distinctive, not generic.
+- Prefer specificity over hype. Real roles, dates, and outcomes beat vague claims.
+- Protect trust. Do not add inflated claims, unverifiable metrics, or AI-sounding filler.
+- Optimize for skim value. Most visitors should understand who Dev is and what he has done within one fast scroll.
+- Respect the current simplicity. The app is intentionally narrow, so add complexity only when it clearly improves the narrative.
 
 ## Current Architecture
 
 - Framework: Next.js App Router with TypeScript
-- Styling: Tailwind CSS with project-defined design tokens in `tailwind.config.ts`
-- Motion: `framer-motion`, centralized through [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx) — the shared scroll-in animation wrapper; prefer this over ad hoc animations
-- UI primitives: [`components/ui/Container.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Container.tsx) (page-width constraint) and [`components/ui/SectionHeading.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/SectionHeading.tsx) (consistent section title treatment)
-- Design tokens: `tailwind.config.ts` defines the `electric` blue palette (100–700 shades) and a `glow` box-shadow — reuse these; do not invent unrelated colors
+- Styling: Tailwind CSS with lightweight project font tokens in [`app/globals.css`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/globals.css) and [`tailwind.config.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/tailwind.config.ts)
+- Motion: `framer-motion`, used directly in [`components/Hero.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Hero.tsx) and [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx), with shared reveal behavior in [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx)
+- Shared layout primitive: [`components/ui/Container.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Container.tsx)
 - Content source: [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts)
-- Photo source: [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos), discovered from disk in [`components/Photos.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Photos.tsx)
+- Utility helper: [`lib/utils.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/utils.ts)
+- Assets: [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos)
 - Page composition: [`app/page.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/page.tsx)
 - Metadata and global shell: [`app/layout.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/layout.tsx)
 
@@ -34,75 +34,69 @@ The quality bar is closer to a sharp founder/product portfolio than a template-d
 
 ### 1. Change the right layer
 
-- Put text, stats, career items, timeline items, navigation labels, and other structured profile content in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts).
-- Change component code only when presentation, structure, or interaction needs to change.
-- Do not hardcode profile content across multiple components if it can live once in `lib/content.ts`.
-- Keep shared layout and animation primitives in [`components/ui`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui).
+- Put site metadata and structured timeline content in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts).
+- Change component code only when presentation, composition, or interaction needs to change.
+- Do not duplicate profile content across multiple components if it can live once in `lib/content.ts`.
+- Keep shared primitives in [`components/ui`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui).
 
-### 2. Preserve the single-page information architecture
+### 2. Preserve the current information architecture
 
 The homepage currently flows through:
 
 1. Hero
-2. Photos
-3. Highlights
-4. Career
-5. Timeline
-6. Beyond Work
-7. Contact
+2. Timeline
 
 When editing:
 
-- keep section order intentional
-- maintain stable section `id`s unless there is a strong reason to change them
-- update any related anchor links if a section `id`, label, or CTA target changes
-- keep the sticky header navigation consistent across desktop and mobile variants
+- keep the section order intentional
+- preserve stable section `id`s unless there is a strong reason to change them
+- update related anchor targets if any `id` changes
+- do not reintroduce removed sections unless there is a clear product reason
 
 ### 3. Maintain the visual language
 
-This site already has a defined aesthetic:
+The live site is not the older dark electric-blue concept. Its current direction is:
 
-- dark, premium, editorial presentation
-- electric blue accent palette
-- glassy panels and soft glows
-- condensed display typography for headings
-- restrained animation rather than novelty motion
+- bright editorial presentation
+- restrained palette with subtle blue accents
+- large condensed headline typography
+- clean white space and soft atmospheric gradients
+- premium motion without visual noise
 
-Do not regress this into a default SaaS layout, bland resume template, or generic Tailwind block composition.
+Do not regress this into a generic SaaS landing page, a resume template, or an over-styled animation demo.
 
 When adding UI:
 
-- reuse `.panel`, `.section-shell`, `.section-kicker`, `Container`, and `SectionHeading` where appropriate
-- prefer extending the existing electric palette and shadow system instead of inventing unrelated colors
-- keep spacing generous and typography deliberate
-- ensure layouts remain strong on small screens first, not only on desktop screenshots
+- reuse `Container` and `Reveal` where they fit
+- keep typography deliberate and spacing generous
+- prefer subtle atmosphere over loud visual effects
+- ensure layouts hold up on small screens first, not only on desktop
 
 ### 4. Be disciplined with motion
 
-- Prefer using [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx) for scroll-in motion instead of ad hoc animations.
-- Keep motion meaningful and minimal.
 - Preserve reduced-motion behavior.
-- Do not introduce animation that harms readability, causes layout instability, or fights scroll.
+- Prefer the shared [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx) wrapper for simple scroll-in motion.
+- Keep motion meaningful and minimal.
+- Do not add animation that harms readability, causes layout instability, or competes with the content.
 
 ### 5. Respect server/client boundaries
 
-- Most of this site can remain server-rendered.
-- [`components/Photos.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Photos.tsx) intentionally reads the filesystem on the server via `readdir`.
-- Do not move filesystem access into client components.
-- Only add `"use client"` where interactivity actually requires it.
+- [`app/page.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/page.tsx) and [`app/layout.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/layout.tsx) remain server components.
+- [`components/Hero.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Hero.tsx), [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx), and [`components/ui/Reveal.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui/Reveal.tsx) are client components because they depend on Framer Motion hooks and viewport interactions.
+- Only add `"use client"` where interactivity genuinely requires it.
 - Keep client components narrow and justified.
 
-### 6. Treat images as product assets
+### 6. Treat images and logos as product assets
 
-- Keep gallery images in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
-- Preserve the current file-based discovery flow unless there is a compelling product reason to replace it.
+- Keep timeline photography and brand assets in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
+- Timeline media selection currently comes from `timelinePlaceholderPhotos` in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts).
+- Logo rendering rules live in [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx).
 - Use `next/image` for rendered images.
-- Be careful with large image counts and oversized assets; this site should stay fast.
-- If you change gallery behavior, keep the empty-state / placeholder behavior coherent.
+- Be careful with oversized assets and image count; the site should stay fast.
 
 ### 7. Protect copy quality
 
-Copy on this site should sound like a high-performing operator with real ambition and evidence, not like a recruiter summary or motivational poster.
+Copy on this site should sound like a high-performing operator with real ambition and evidence, not a recruiter summary or motivational poster.
 
 Preferred traits:
 
@@ -117,77 +111,69 @@ Avoid:
 - filler adjectives
 - generic leadership cliches
 - duplicated points across sections
-- unsupported “best-in-class” style claims
-- bloated paragraphs where a sharper sentence or bullet would do
-
-If you improve content, aim to increase signal density and consistency of voice.
+- unsupported claims
+- bloated paragraphs where a sharper sentence would do
 
 ## File-Specific Guidance
 
 ### [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts)
 
-- This is the primary source of truth for profile content.
+- This is the primary source of truth for site metadata and timeline entries.
 - Keep data structures clean, typed by inference, and easy to scan.
-- Preserve naming consistency and avoid shape churn unless the UI genuinely needs it.
-- When adding fields, update only the components that benefit from them.
+- Preserve naming consistency and avoid unnecessary shape churn.
+- When adding fields, update only the components that actually need them.
 
 ### [`app/page.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/page.tsx)
 
-- Keep this file focused on page composition, not business logic or large data blobs.
-- Preserve the skip link and background treatment.
-- Do not bury section composition in unnecessary abstractions.
+- Keep this file focused on page composition.
+- Do not move large data blobs or styling logic into it.
+- It should stay easy to scan.
 
 ### [`app/layout.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/layout.tsx)
 
 - Keep metadata accurate and aligned with `siteConfig`.
 - Preserve canonical, Open Graph, and Twitter metadata coverage.
-- If changing site positioning or branding, update metadata intentionally, not partially.
+- If branding or positioning changes, update metadata intentionally and completely.
 
 ### [`app/globals.css`](/Users/devdeepak/Desktop/DevDeepakWebsite/app/globals.css)
 
-- Use this for global tokens, shared utility classes, and base visual treatments.
-- Avoid dumping component-specific one-off styles here unless they truly belong at the global layer.
-- Protect readability, contrast, and background performance.
-
-### [`components/SiteHeader.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/SiteHeader.tsx)
-
-- Keep navigation labels, anchor targets, and CTA behavior aligned with `navigation` and `siteConfig`.
-- Preserve sticky behavior and mobile usability.
-- Horizontal overflow in mobile nav is acceptable; broken navigation is not.
+- Use this for global tokens, base styles, and shared utilities.
+- Avoid moving section-specific styling here unless it truly belongs at the global layer.
+- Protect readability, contrast, and overall visual restraint.
 
 ### [`components/Hero.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Hero.tsx)
 
-- The hero must quickly answer who Dev is, what he does, and why he is worth paying attention to.
-- Keep CTA targets real and maintained.
-- Do not let this section become verbose.
+- The hero must answer who Dev is and why he is worth paying attention to quickly.
+- Keep the message concise.
+- Preserve the strong headline treatment and controlled motion.
 
-### [`components/Photos.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Photos.tsx)
+### [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx)
 
-- Keep the gallery resilient if the directory is empty.
-- Maintain accessible alt text.
-- Avoid introducing client-side fetching or unnecessary state.
+- Keep the timeline easy to scan across mobile and desktop.
+- Preserve the relationship between timeline data in `lib/content.ts` and visual theming in this component.
+- Be careful with hover motion, parallax, and collage layouts so they stay tasteful and performant.
+- Maintain accessible alt text and sensible fallbacks for entries without logos.
 
 ### [`components/ui/*.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/ui)
 
 - These are primitives. Keep them generic, small, and reusable.
-- If a pattern is only used once and is tightly coupled to one section, it probably does not belong here.
+- If a pattern is tightly coupled to one section, it probably belongs in that section component instead.
 
 ## Engineering Standards
 
-- Keep TypeScript clean. Avoid `any` unless there is a clear, documented reason.
+- Keep TypeScript clean. Avoid `any` unless there is a clear reason.
 - Prefer simple data flow over abstraction-heavy patterns.
 - Do not add dependencies lightly. This repo is small and should stay lean.
-- Preserve accessibility: semantic headings, usable focus states, keyboard navigation, reduced-motion support, and descriptive link text where possible.
+- Preserve accessibility: semantic structure, usable focus states, reduced-motion support, and descriptive alt text.
 - Preserve performance: avoid unnecessary client components, large hydration surfaces, and heavy runtime logic.
-- Preserve maintainability: one source of truth for content, no duplicated constants scattered across the tree.
+- Preserve maintainability: keep content centralized and avoid duplicated constants.
 
 ## Definition of Done
 
 A change is not done until all of the following are true:
 
-- the change fits the product narrative of the site
-- content is consistent with the rest of the voice and fact pattern
-- navigation and anchor links still work
+- the change fits the site's narrative and quality bar
+- copy is consistent with the rest of the voice and fact pattern
 - mobile and desktop layouts both hold up
 - lint passes
 - if the change is structural or styling-heavy, a production build should also pass
@@ -197,29 +183,29 @@ A change is not done until all of the following are true:
 Run these from the repo root:
 
 ```bash
-npm run dev      # local dev server — use for UI, copy, spacing, or interaction changes
-npm run lint     # ESLint check
-npm run build    # production build
+npm run dev
+npm run lint
+npm run build
 ```
 
-There is no test suite. A change is done when lint passes and the production build succeeds (for structural or styling changes).
+There is no test suite. For most changes, lint should pass. For structural or visual changes, the production build should also succeed.
 
 ## Good Change Examples
 
-- tightening hero copy to make the positioning clearer and more specific
+- tightening hero copy to make positioning clearer
+- refining timeline spacing, typography, or motion without hurting scanability
 - improving metadata when the brand statement changes
-- refining section hierarchy or spacing without breaking the existing aesthetic
-- expanding `lib/content.ts` to support a richer but still structured career or timeline presentation
-- improving photo rendering or fallback behavior while preserving the file-based workflow
+- extending `lib/content.ts` to support a richer but still structured timeline
+- improving logo fallbacks or image treatment while preserving performance
 
 ## Bad Change Examples
 
 - adding a CMS or database for simple static profile content
-- spreading hardcoded biography text across multiple components
-- replacing the established aesthetic with generic gradient-card SaaS UI
-- introducing client-side state for content that can be rendered on the server
-- adding animations that are louder than the content
-- shipping copy that sounds exaggerated, vague, or obviously machine-written
+- spreading biography text across multiple components
+- reintroducing removed sections without a strong reason
+- adding client-side state for content that can be static
+- shipping copy that sounds exaggerated, vague, or machine-generated
+- adding animation that is louder than the story
 
 ## If You Are Unsure
 
@@ -228,5 +214,5 @@ When facing a tradeoff, bias toward:
 1. stronger clarity
 2. stronger credibility
 3. less complexity
-4. preserving the existing premium editorial feel
-5. keeping the content system centralized in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts)
+4. preserving the current editorial feel
+5. keeping content centralized in [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts)
