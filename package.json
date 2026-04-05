@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate:mosaic": "node scripts/generate-mosaic-metadata.mjs",
+    "predev": "npm run generate:mosaic",
+    "prebuild": "npm run generate:mosaic",
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",

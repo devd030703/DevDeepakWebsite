@@ -22,7 +22,11 @@ Project content is intentionally centralized:
 - [`lib/content.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/content.ts): site metadata and timeline entries
 - [`components/Hero.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Hero.tsx): intro section and headline motion
 - [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/Timeline.tsx): timeline layout, logo mapping, and scroll-driven motion
-- [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos): logo and image assets referenced by the timeline
+- [`components/PhotoMosaic.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/components/PhotoMosaic.tsx): runtime mosaic renderer and interaction logic
+- [`scripts/generate-mosaic-metadata.mjs`](/Users/devdeepak/Desktop/DevDeepakWebsite/scripts/generate-mosaic-metadata.mjs): build-time photo discovery, classification, ordering, and metadata generation
+- [`data/mosaic-overrides.json`](/Users/devdeepak/Desktop/DevDeepakWebsite/data/mosaic-overrides.json): optional manual overrides for crop, alt text, and heuristic escape hatches
+- [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos): logo assets referenced by the timeline
+- [`public/photos/mosaic`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos/mosaic): raster images consumed by the mosaic generator
 
 ## Local Development
 
@@ -69,7 +73,15 @@ Update [`components/Timeline.tsx`](/Users/devdeepak/Desktop/DevDeepakWebsite/com
 - typography overrides
 - logo asset mapping
 
-Add or replace referenced assets in [`public/photos`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos).
+Add new mosaic photos to [`public/photos/mosaic`](/Users/devdeepak/Desktop/DevDeepakWebsite/public/photos/mosaic).
+
+Optional mosaic overrides live in [`data/mosaic-overrides.json`](/Users/devdeepak/Desktop/DevDeepakWebsite/data/mosaic-overrides.json) for:
+
+- custom `alt`
+- custom `objectPosition`
+- rare ordering or expansion overrides
+
+Generated mosaic metadata is written to [`lib/generated/mosaicPhotos.generated.ts`](/Users/devdeepak/Desktop/DevDeepakWebsite/lib/generated/mosaicPhotos.generated.ts).
 
 ## Notes
 
