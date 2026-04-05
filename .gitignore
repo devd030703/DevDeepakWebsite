@@ -6,3 +6,10 @@ dist
 *.log
 
 .vercel
+
+# JetBrains local workspace state
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/shelf/
+.idea/**/usage.statistics.xml
+.idea/**/contentModel.xml
