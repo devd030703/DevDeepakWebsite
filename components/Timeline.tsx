@@ -337,7 +337,10 @@ type RawMosaicPhoto = Omit<MosaicPhoto, "aspectRatio" | "profile">;
 const MOSAIC_GAP_PX = 8;
 const MOSAIC_HOVER_OPEN_DELAY_MS = 90;
 const MOSAIC_HOVER_CLOSE_DELAY_MS = 140;
+const MOSAIC_HOVER_REFLOW_GUARD_MS = 260;
+const MOSAIC_HOVER_REFLOW_GUARD_DISTANCE_PX = 18;
 const DESKTOP_MOSAIC_COLUMNS = 4;
+const DEFAULT_MOSAIC_SPAN = { cols: 1, rows: 1 } as const;
 
 const RAW_MOSAIC_PHOTOS: readonly RawMosaicPhoto[] = [
   { src: "/photos/Engine_Analyst_2.jpeg", alt: "Engine by Starling", objectPosition: "center 24%", width: 5712, height: 4284 },
@@ -361,15 +364,6 @@ const RAW_MOSAIC_PHOTOS: readonly RawMosaicPhoto[] = [
   { src: "/photos/kraken_2.jpeg", alt: "Kraken", objectPosition: "center", width: 4032, height: 3024 },
   { src: "/photos/merch_1.jpeg", alt: "Personal", objectPosition: "center", width: 4032, height: 3024 },
 ] as const;
-
-const PROFILE_COLUMN_WEIGHTS: Record<MosaicProfile, readonly number[]> = {
-  ultraWide: [18, 10, -1000, -1000],
-  wide: [15, 13, 2, -1000],
-  landscape: [11, 11, 8, 1],
-  square: [7, 9, 10, 4],
-  portrait: [6, 9, 11, 5],
-  tallPortrait: [5, 7, 9, 13],
-};
 
 const PROFILE_IDLE_SCALE: Record<MosaicProfile, number> = {
   ultraWide: 1.1,
@@ -425,12 +419,76 @@ function toMosaicPhoto(photo: RawMosaicPhoto): MosaicPhoto {
   };
 }
 
+function clampNumber(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function getPreferredExpandedCols(aspectRatio: number, columns: number) {
+  if (columns <= 1) {
+    return 1;
+  }
+
+  if (aspectRatio >= 2.1) {
+    return Math.min(columns, 4);
+  }
+
+  if (aspectRatio >= 1.55) {
+    return Math.min(columns, 3);
+  }
+
+  if (aspectRatio >= 1.08) {
+    return Math.min(columns, 2);
+  }
+
+  if (aspectRatio >= 0.88) {
+    return Math.min(columns, 2);
+  }
+
+  if (columns >= 3) {
+    return 2;
+  }
+
+  return aspectRatio >= 0.68 ? Math.min(columns, 2) : 1;
+}
+
+function getExpandedRowsFromRatio(
+  aspectRatio: number,
+  cols: number,
+  columns: number,
+) {
+  const rawRows = Math.round(cols / aspectRatio);
+  const maxRows = aspectRatio < 0.58
+    ? (columns >= 4 ? 5 : 4)
+    : aspectRatio < 0.82
+      ? 4
+      : 3;
+
+  return clampNumber(rawRows, 2, maxRows);
+}
+
+function getPreviewExpandedSpan(
+  aspectRatio: number,
+  columns: number,
+  slotIndex: number,
+) {
+  const preferredCols = getPreferredExpandedCols(aspectRatio, columns);
+  const column = (slotIndex % columns) + 1;
+  const remainingColumns = columns - column + 1;
+  const cols = Math.max(1, Math.min(preferredCols, remainingColumns));
+
+  return {
+    cols,
+    rows: getExpandedRowsFromRatio(aspectRatio, cols, columns),
+  };
+}
+
 function getDesktopSlotScore(
   orderedPhotos: readonly MosaicPhoto[],
   photo: MosaicPhoto,
   slotIndex: number,
 ) {
   const column = (slotIndex % DESKTOP_MOSAIC_COLUMNS) + 1;
+  const remainingColumns = DESKTOP_MOSAIC_COLUMNS - column + 1;
   const leftPhoto = slotIndex % DESKTOP_MOSAIC_COLUMNS === 0
     ? null
     : orderedPhotos[slotIndex - 1];
@@ -438,7 +496,29 @@ function getDesktopSlotScore(
     slotIndex >= DESKTOP_MOSAIC_COLUMNS
       ? orderedPhotos[slotIndex - DESKTOP_MOSAIC_COLUMNS]
       : null;
-  let score = PROFILE_COLUMN_WEIGHTS[photo.profile][column - 1];
+  const preferredCols = getPreferredExpandedCols(
+    photo.aspectRatio,
+    DESKTOP_MOSAIC_COLUMNS,
+  );
+  const previewSpan = getPreviewExpandedSpan(
+    photo.aspectRatio,
+    DESKTOP_MOSAIC_COLUMNS,
+    slotIndex,
+  );
+  let score = previewSpan.cols === preferredCols
+    ? 8
+    : -8 * (preferredCols - previewSpan.cols);
+
+  if (photo.aspectRatio < 0.88) {
+    score += remainingColumns >= 2 ? 6 : -10;
+    score += column === DESKTOP_MOSAIC_COLUMNS ? -6 : 2;
+  } else if (photo.aspectRatio >= 1.55) {
+    score += column === 1 ? 5 : column === 2 ? 2 : -5;
+  } else if (photo.aspectRatio >= 1.08) {
+    score += column <= 2 ? 3 : -1;
+  } else {
+    score += column === 2 || column === 3 ? 2 : 0;
+  }
 
   if (leftPhoto?.alt === photo.alt) {
     score -= 4;
@@ -457,10 +537,6 @@ function getDesktopSlotScore(
   }
 
   if (column === 1 && (photo.profile === "wide" || photo.profile === "ultraWide")) {
-    score += 2;
-  }
-
-  if (column === 4 && photo.profile === "tallPortrait") {
     score += 2;
   }
 
@@ -507,68 +583,12 @@ function getMosaicColumnCount(width: number) {
   return 4;
 }
 
-function getDesiredExpandedSpan(profile: MosaicProfile, columns: number) {
-  if (profile === "ultraWide") {
-    return { cols: Math.min(columns, 4), rows: 2 };
-  }
-
-  if (profile === "wide") {
-    return { cols: Math.min(columns, 3), rows: 2 };
-  }
-
-  if (profile === "landscape" || profile === "square") {
-    return { cols: Math.min(columns, 2), rows: 2 };
-  }
-
-  if (profile === "portrait") {
-    return { cols: columns >= 2 ? 2 : 1, rows: 3 };
-  }
-
-  return { cols: 1, rows: columns >= 4 ? 4 : 3 };
-}
-
 function getExpandedSpan(
-  profile: MosaicProfile,
+  photo: MosaicPhoto,
   columns: number,
   index: number,
 ) {
-  const desiredSpan = getDesiredExpandedSpan(profile, columns);
-  const column = (index % columns) + 1;
-  const remainingColumns = columns - column + 1;
-
-  if (desiredSpan.cols <= remainingColumns) {
-    return desiredSpan;
-  }
-
-  if (profile === "ultraWide") {
-    return {
-      cols: Math.max(2, remainingColumns),
-      rows: 2,
-    };
-  }
-
-  if (profile === "wide") {
-    return {
-      cols: Math.max(1, remainingColumns),
-      rows: 2,
-    };
-  }
-
-  if (profile === "landscape" || profile === "square") {
-    return {
-      cols: 1,
-      rows: 2,
-    };
-  }
-
-  if (profile === "portrait") {
-    return {
-      cols: 1,
-      rows: 3,
-    };
-  }
-
-  return desiredSpan;
+  return getPreviewExpandedSpan(photo.aspectRatio, columns, index);
 }
 
 function getThumbnailScale(profile: MosaicProfile, isActive: boolean) {
@@ -576,12 +596,17 @@ function getThumbnailScale(profile: MosaicProfile, isActive: boolean) {
 }
 
 function PhotoMosaic() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activePhotoSrc, setActivePhotoSrc] = useState<string | null>(null);
   const [gridWidth, setGridWidth] = useState(0);
   const reduceMotion = useReducedMotion();
   const gridRef = useRef<HTMLDivElement>(null);
+  const activePhotoSrcRef = useRef<string | null>(null);
   const activateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const deactivateTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverGuardTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pointerPositionRef = useRef<{ x: number; y: number } | null>(null);
+  const hoverLockPointerRef = useRef<{ x: number; y: number } | null>(null);
+  const isHoverGuardActiveRef = useRef(false);
 
   const clearActivateTimer = () => {
     if (activateTimer.current) {
@@ -597,17 +622,82 @@ function PhotoMosaic() {
     }
   };
 
-  const openTile = (index: number, immediate = false) => {
+  const clearHoverGuardTimer = () => {
+    if (hoverGuardTimer.current) {
+      clearTimeout(hoverGuardTimer.current);
+      hoverGuardTimer.current = null;
+    }
+  };
+
+  const setActivePhoto = (photoSrc: string | null, source: "hover" | "focus" | "click" | "close") => {
+    activePhotoSrcRef.current = photoSrc;
+    setActivePhotoSrc(photoSrc);
+
+    if (photoSrc && source === "hover") {
+      clearHoverGuardTimer();
+      isHoverGuardActiveRef.current = true;
+      hoverLockPointerRef.current = pointerPositionRef.current;
+      hoverGuardTimer.current = setTimeout(() => {
+        isHoverGuardActiveRef.current = false;
+        hoverGuardTimer.current = null;
+      }, MOSAIC_HOVER_REFLOW_GUARD_MS);
+      return;
+    }
+
+    if (!photoSrc) {
+      clearHoverGuardTimer();
+      isHoverGuardActiveRef.current = false;
+      hoverLockPointerRef.current = null;
+    }
+  };
+
+  const shouldIgnoreHoverSwitch = (photoSrc: string) => {
+    if (activePhotoSrcRef.current === photoSrc) {
+      return false;
+    }
+
+    if (!isHoverGuardActiveRef.current) {
+      return false;
+    }
+
+    const currentPointer = pointerPositionRef.current;
+    const lockedPointer = hoverLockPointerRef.current;
+
+    if (!currentPointer || !lockedPointer) {
+      return true;
+    }
+
+    const pointerDelta = Math.hypot(
+      currentPointer.x - lockedPointer.x,
+      currentPointer.y - lockedPointer.y,
+    );
+
+    return pointerDelta < MOSAIC_HOVER_REFLOW_GUARD_DISTANCE_PX;
+  };
+
+  const openTile = (
+    photoSrc: string,
+    source: "hover" | "focus" | "click",
+    immediate = false,
+  ) => {
     clearDeactivateTimer();
     clearActivateTimer();
 
-    if (immediate || reduceMotion) {
-      setActiveIndex(index);
+    if (activePhotoSrcRef.current === photoSrc) {
+      return;
+    }
+
+    if (source === "hover" && shouldIgnoreHoverSwitch(photoSrc)) {
+      return;
+    }
+
+    if (immediate || reduceMotion || source !== "hover") {
+      setActivePhoto(photoSrc, source);
       return;
     }
 
     activateTimer.current = setTimeout(() => {
-      setActiveIndex(index);
+      setActivePhoto(photoSrc, "hover");
       activateTimer.current = null;
     }, MOSAIC_HOVER_OPEN_DELAY_MS);
   };
@@ -617,12 +707,12 @@ function PhotoMosaic() {
     clearDeactivateTimer();
 
     if (immediate || reduceMotion) {
-      setActiveIndex(null);
+      setActivePhoto(null, "close");
       return;
     }
 
     deactivateTimer.current = setTimeout(() => {
-      setActiveIndex(null);
+      setActivePhoto(null, "close");
       deactivateTimer.current = null;
     }, MOSAIC_HOVER_CLOSE_DELAY_MS);
   };
@@ -656,6 +746,7 @@ function PhotoMosaic() {
     return () => {
       clearActivateTimer();
       clearDeactivateTimer();
+      clearHoverGuardTimer();
     };
   }, []);
 
@@ -671,7 +762,17 @@ function PhotoMosaic() {
         <div
           ref={gridRef}
           className="relative"
-          onMouseLeave={() => closeTile()}
+          onPointerLeave={() => closeTile()}
+          onPointerMove={(event) => {
+            if (event.pointerType !== "mouse" && event.pointerType !== "pen") {
+              return;
+            }
+
+            pointerPositionRef.current = {
+              x: event.clientX,
+              y: event.clientY,
+            };
+          }}
           onKeyDown={(event) => {
             if (event.key === "Escape") {
               closeTile(true);
@@ -683,15 +784,14 @@ function PhotoMosaic() {
             style={{
               gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
               gridAutoRows: `${cellSize}px`,
-              gridAutoFlow: "dense",
             }}
           >
             {MOSAIC_PHOTOS.map((photo, index) => {
-              const isActive = activeIndex === index;
-              const isDimmed = activeIndex !== null && activeIndex !== index;
+              const isActive = activePhotoSrc === photo.src;
+              const isDimmed = activePhotoSrc !== null && activePhotoSrc !== photo.src;
               const activeSpan = isActive
-                ? getExpandedSpan(photo.profile, columns, index)
-                : { cols: 1, rows: 1 };
+                ? getExpandedSpan(photo, columns, index)
+                : DEFAULT_MOSAIC_SPAN;
 
               return (
                 <motion.button
@@ -712,8 +812,18 @@ function PhotoMosaic() {
                     layout: { duration: reduceMotion ? 0 : 0.5, ease: EASE },
                     opacity: { duration: reduceMotion ? 0 : 0.2 },
                   }}
-                  onMouseEnter={() => openTile(index)}
-                  onFocus={() => openTile(index, true)}
+                  onPointerEnter={(event) => {
+                    if (event.pointerType !== "mouse" && event.pointerType !== "pen") {
+                      return;
+                    }
+
+                    pointerPositionRef.current = {
+                      x: event.clientX,
+                      y: event.clientY,
+                    };
+                    openTile(photo.src, "hover");
+                  }}
+                  onFocus={() => openTile(photo.src, "focus", true)}
                   onBlur={(event) => {
                     if (!gridRef.current?.contains(event.relatedTarget as Node | null)) {
                       closeTile(true);
@@ -725,7 +835,7 @@ function PhotoMosaic() {
                       return;
                     }
 
-                    openTile(index, true);
+                    openTile(photo.src, "click", true);
                   }}
                   aria-label={`Expand photo: ${photo.alt}`}
                   aria-expanded={isActive}

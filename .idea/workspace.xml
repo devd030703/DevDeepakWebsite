@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="fixed the photos">
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="fixed git ignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Timeline.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +292,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775311967205</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="fixed git ignore">
+      <option name="closed" value="true" />
+      <created>1775360697856</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1775360697856</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fixed git ignore">
+      <option name="closed" value="true" />
+      <created>1775360709360</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1775360709360</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,6 +337,7 @@
     <MESSAGE value="Updates to design language and added photos. the animation parts are not working as expected but at least it's working" />
     <MESSAGE value="first attempt at getting images onto the site in a nice mosiac" />
     <MESSAGE value="fixed the photos" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the photos" />
+    <MESSAGE value="fixed git ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed git ignore" />
   </component>
 </project>
