@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="Introduced photo script to allow me to add new photos whenever I want">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Hero.tsx" afterDir="false" />
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="changed some copy">
+      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Timeline.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +117,7 @@
       <workItem from="1773595692261" duration="6366000" />
       <workItem from="1775273386976" duration="2568000" />
       <workItem from="1775590064043" duration="789000" />
+      <workItem from="1775592503053" duration="271000" />
     </task>
     <task id="LOCAL-00001" summary="started my website">
       <option name="closed" value="true" />
@@ -326,14 +327,21 @@
       <option name="project" value="LOCAL" />
       <updated>1775411957983</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="changed some copy">
+      <option name="closed" value="true" />
+      <created>1775592520609</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1775592520609</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="started my website" />
     <MESSAGE value="Updated linkedin" />
     <MESSAGE value="Update" />
     <MESSAGE value="Update hero page" />
@@ -358,6 +366,7 @@
     <MESSAGE value="fixed git ignore" />
     <MESSAGE value="fixed photos" />
     <MESSAGE value="Introduced photo script to allow me to add new photos whenever I want" />
-    <option name="LAST_COMMIT_MESSAGE" value="Introduced photo script to allow me to add new photos whenever I want" />
+    <MESSAGE value="changed some copy" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed some copy" />
   </component>
 </project>

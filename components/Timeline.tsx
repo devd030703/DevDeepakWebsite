@@ -195,6 +195,8 @@ function themeValue(value: ThemeValue) {
 
 function LogoStage({ entry }: { entry: TimelineEntry }) {
   const logo = LOGO_CONFIG[entry.company];
+  const fallbackWordmarkColor =
+    entry.company === "Nower Hill High School" ? "#111111" : "var(--page-text)";
 
   return (
     <div className="flex h-16 w-full max-w-[22rem] items-center overflow-hidden rounded-[1.5rem] border border-[var(--logo-stage-border)] bg-[var(--surface-logo-bg)] px-4 sm:h-20 sm:px-5">
@@ -210,7 +212,10 @@ function LogoStage({ entry }: { entry: TimelineEntry }) {
           )}
         />
       ) : (
-        <span className="font-display text-[1.45rem] font-semibold leading-none tracking-[-0.04em] text-[var(--page-text)] sm:text-[1.7rem]">
+        <span
+          className="font-display text-[1.45rem] font-semibold leading-none tracking-[-0.04em] sm:text-[1.7rem]"
+          style={{ color: fallbackWordmarkColor }}
+        >
           {logo?.fallbackWordmark ?? entry.company}
         </span>
       )}
