@@ -10,7 +10,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const ANIM_DURATION = 0.82;
 const ANIM_TIMES = [0, 0.38, 0.85, 1]; // spend 47% holding the blurred state
 const ABERRATION_PX = 7;
-const HEADLINE_LINES = ["Love the", "hard stuff."] as const;
+const HEADLINE_LINES = ["Love", "building."] as const;
 
 function entry(delay: number, reduceMotion: boolean | null) {
   if (reduceMotion) {
@@ -138,7 +138,7 @@ export function Hero() {
           {...entry(0.88, reduceMotion)}
           className="mt-6 max-w-xs text-[1rem] leading-relaxed text-[var(--page-text-muted)] sm:text-[1.0625rem]"
         >
-          Product at Engine by Starling. Previously Apple, Octopus Energy, Starling Bank, Episode 1 Ventures.
+          Product at Engine by Starling. Previously at Apple, Octopus Energy, Starling Bank, Episode 1 Ventures.
         </motion.p>
       </Container>
     </section>
