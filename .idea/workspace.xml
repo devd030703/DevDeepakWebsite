@@ -4,14 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="changed some copy" />
+    <list default="true" id="14fb7c2e-0cd3-4d61-a9b6-164a00e8959e" name="Changes" comment="settings">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/PhotoMosaic.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/PhotoMosaic.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Timeline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Timeline.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="76" />
+    <option name="cachedIndexableFilesCount" value="74" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,7 +62,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "codex/new-visual-design",
     "javascript.preferred.runtime.type.id": "node",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
@@ -67,7 +75,7 @@
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "ml.llm.AcpAgentsConfigurable",
     "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "/Users/devdeepak/Desktop/DevDeepakWebsite/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/devdeepak/Coding-Projects/DevDeepakWebsite/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -115,7 +123,8 @@
       <workItem from="1775273386976" duration="2568000" />
       <workItem from="1775590064043" duration="789000" />
       <workItem from="1775592503053" duration="271000" />
-      <workItem from="1776197511230" duration="398000" />
+      <workItem from="1776197511230" duration="1097000" />
+      <workItem from="1776202383203" duration="805000" />
     </task>
     <task id="LOCAL-00001" summary="started my website">
       <option name="closed" value="true" />
@@ -333,14 +342,21 @@
       <option name="project" value="LOCAL" />
       <updated>1775592520609</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="settings">
+      <option name="closed" value="true" />
+      <created>1776198013081</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1776198013081</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated linkedin" />
     <MESSAGE value="Update" />
     <MESSAGE value="Update hero page" />
     <MESSAGE value="Updates" />
@@ -365,6 +381,7 @@
     <MESSAGE value="fixed photos" />
     <MESSAGE value="Introduced photo script to allow me to add new photos whenever I want" />
     <MESSAGE value="changed some copy" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed some copy" />
+    <MESSAGE value="settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="settings" />
   </component>
 </project>

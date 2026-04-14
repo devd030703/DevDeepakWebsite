@@ -1,10 +1,23 @@
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
+import { Manrope, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 import { siteConfig } from "@/lib/content";
 
 const siteUrl = siteConfig.url;
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -41,8 +54,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f1115" },
+    { media: "(prefers-color-scheme: light)", color: "#fff8f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#24020a" },
   ],
 };
 
@@ -53,7 +66,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-[var(--page-bg)] text-[var(--page-text)]">
+      <body
+        className={`${manrope.variable} ${spaceGrotesk.variable} bg-[var(--page-bg)] text-[var(--page-text)]`}
+      >
         {children}
       </body>
     </html>

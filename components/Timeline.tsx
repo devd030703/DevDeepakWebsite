@@ -75,7 +75,7 @@ const ENTRY_THEMES: Record<string, EntryTheme> = {
 const DEFAULT_BRAND_TYPOGRAPHY: BrandTypography = {
   color: { light: "#0f172a", dark: "#edf2f7" },
   fontWeight: 600,
-  letterSpacing: "-0.035em",
+  letterSpacing: "0",
 };
 
 const BRAND_TYPOGRAPHY: Record<string, BrandTypography> = {
@@ -83,38 +83,38 @@ const BRAND_TYPOGRAPHY: Record<string, BrandTypography> = {
     color: { light: "#111111", dark: "#f0faf8" },
     fontFamily: '"Universal Sans", sans-serif',
     fontWeight: 700,
-    letterSpacing: "-0.06em",
+    letterSpacing: "0",
   },
   "Starling Bank": {
     color: { light: "#321E37", dark: "#efe7f4" },
     fontFamily: '"Avantt", "Inter Tight", sans-serif',
     fontWeight: 650,
-    letterSpacing: "-0.05em",
+    letterSpacing: "0",
   },
   amicable: {
     color: { light: "#17130f", dark: "#f2ebe5" },
     fontFamily: "Solomon, Arial, sans-serif",
     fontWeight: 400,
-    letterSpacing: "-0.02em",
+    letterSpacing: "0",
   },
   Kraken: {
     color: { light: "#100030", dark: "#ddd6ff" },
     fontFamily: "Chromatophore, Helvetica, sans-serif",
     fontWeight: 700,
-    letterSpacing: "-0.035em",
+    letterSpacing: "0",
   },
   "King's College London": {
     color: { light: "#0a2d50", dark: "#bfd6ee" },
     fontFamily:
       '"KingsBureauGrotFiveOne", "Helvetica Neue", "Helvetica", "Arial", sans-serif',
     fontWeight: 400,
-    letterSpacing: "0.08em",
+    letterSpacing: "0",
     textTransform: "uppercase",
   },
   "Highgate School": {
     color: { light: "#053776", dark: "#9abfff" },
     fontWeight: 600,
-    letterSpacing: "0.08em",
+    letterSpacing: "0",
     textTransform: "uppercase",
   },
 };
@@ -199,7 +199,7 @@ function LogoStage({ entry }: { entry: TimelineEntry }) {
     entry.company === "Nower Hill High School" ? "#111111" : "var(--page-text)";
 
   return (
-    <div className="flex h-16 w-full max-w-[22rem] items-center overflow-hidden rounded-[1.5rem] border border-[var(--logo-stage-border)] bg-[var(--surface-logo-bg)] px-4 sm:h-20 sm:px-5">
+    <div className="flex h-16 w-full max-w-[22rem] items-center overflow-hidden rounded-lg border border-[var(--logo-stage-border)] bg-[var(--surface-logo-bg)] px-4 shadow-[0_18px_50px_var(--shadow-soft)] backdrop-blur-xl sm:h-20 sm:px-5">
       {logo?.src ? (
         <Image
           src={logo.src}
@@ -213,7 +213,7 @@ function LogoStage({ entry }: { entry: TimelineEntry }) {
         />
       ) : (
         <span
-          className="font-display text-[1.45rem] font-semibold leading-none tracking-[-0.04em] sm:text-[1.7rem]"
+          className="font-display text-[1.45rem] font-semibold leading-none tracking-normal sm:text-[1.7rem]"
           style={{ color: fallbackWordmarkColor }}
         >
           {logo?.fallbackWordmark ?? entry.company}
@@ -246,11 +246,11 @@ function TimelineItem({
           style={itemTheme}
         >
           <div className="md:pt-9 lg:pt-10">
-            <div className="inline-flex items-center rounded-full border border-[var(--border-strong)] bg-[var(--surface-pill)] px-3 py-1 text-[0.68rem] uppercase tracking-[0.26em] text-[var(--page-text-soft)] md:hidden">
+            <div className="inline-flex items-center rounded-lg border border-[var(--border-strong)] bg-[var(--surface-pill)] px-3 py-1 font-display text-[0.68rem] font-bold uppercase tracking-normal text-[var(--primary)] shadow-[0_12px_36px_var(--shadow-warm)] md:hidden">
               {entry.date}
             </div>
             <div className="hidden md:block md:text-right">
-              <p className="text-sm font-medium leading-6 text-[var(--page-text-muted)] lg:text-[0.96rem]">
+              <p className="font-display text-[1rem] font-black leading-tight tracking-normal text-[var(--page-text)] opacity-70 lg:text-[1.18rem]">
                 {entry.date}
               </p>
             </div>
@@ -258,8 +258,8 @@ function TimelineItem({
 
           <div className="relative hidden md:flex justify-center">
             <div
-              className="relative mt-10 flex h-6 w-6 items-center justify-center rounded-full bg-[var(--surface-raised)]"
-              style={{ boxShadow: "0 16px 34px var(--shadow-soft)" }}
+              className="relative mt-10 flex h-7 w-7 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--surface-raised)]"
+              style={{ boxShadow: "0 18px 44px var(--shadow-warm)" }}
             >
               {index === 0 && (
                 <span
@@ -275,17 +275,17 @@ function TimelineItem({
           </div>
 
           <motion.div
-            whileHover={reduceMotion ? undefined : { y: -2 }}
-            transition={{ duration: 0.45, ease: EASE }}
-            className="group relative pt-7 sm:pt-8"
+            whileHover={reduceMotion ? undefined : { y: -6, scale: 1.01 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="group relative rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-soft)] p-5 pt-7 shadow-[0_24px_70px_var(--shadow-soft)] backdrop-blur-xl sm:p-6 sm:pt-8 lg:p-8"
           >
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 h-px"
+              className="pointer-events-none absolute inset-x-4 top-0 h-px sm:inset-x-6 lg:inset-x-8"
               style={{
                 background:
-                  "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--entry-accent) 50%, rgba(255, 255, 255, 0) 100%)",
-                opacity: 0.38,
+                  "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--primary) 18%, var(--entry-accent) 56%, rgba(255, 255, 255, 0) 100%)",
+                opacity: 0.58,
               }}
             />
 
@@ -296,7 +296,7 @@ function TimelineItem({
 
               <div className="max-w-[46ch] xl:self-end">
                 <p
-                  className="text-[1rem] leading-[1.15] sm:text-[1.08rem] lg:text-[1.18rem]"
+                  className="text-[1.08rem] leading-[1.15] sm:text-[1.18rem] lg:text-[1.32rem]"
                   style={{
                     color: "var(--entry-role-color)",
                     fontFamily: brandTypography.fontFamily,
@@ -308,7 +308,7 @@ function TimelineItem({
                 >
                   {entry.role}
                 </p>
-                <p className="mt-2 text-[0.88rem] leading-[1.65] text-[var(--page-text-muted)] sm:text-[0.92rem]">
+                <p className="mt-3 text-[0.9rem] font-medium leading-[1.7] text-[var(--page-text-muted)] sm:text-[0.98rem]">
                   {entry.descriptor}
                 </p>
               </div>
@@ -324,7 +324,7 @@ export function Timeline() {
   return (
     <section
       id="timeline"
-      className="relative overflow-hidden py-24 sm:py-32"
+      className="relative overflow-hidden border-y border-[var(--border-subtle)] bg-[var(--timeline-bg)] py-24 sm:py-32"
     >
       <div
         aria-hidden
@@ -337,7 +337,7 @@ export function Timeline() {
 
       <Container className="max-w-[90rem]">
         <div className="relative mt-12 sm:mt-14">
-          <ol className="space-y-8 sm:space-y-10 lg:space-y-12">
+          <ol className="relative space-y-8 before:absolute before:bottom-0 before:top-2 before:hidden before:w-px before:bg-[linear-gradient(180deg,var(--primary),var(--border-subtle),transparent)] before:opacity-45 before:content-[''] md:before:left-[14.75rem] md:before:block lg:before:left-[16rem] sm:space-y-10 lg:space-y-12">
             {timelineEntries.map((entry, index) => (
               <TimelineItem
                 key={`${entry.company}-${entry.role}`}

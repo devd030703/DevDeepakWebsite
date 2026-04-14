@@ -247,16 +247,19 @@ export function PhotoMosaic() {
                   key={photo.src}
                   type="button"
                   layout
-                  className="group relative overflow-hidden rounded-[1.05rem] border border-[var(--photo-frame-border)] bg-[var(--surface-soft)] text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--page-text-soft)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]"
+                  className="group relative overflow-hidden rounded-lg border bg-[var(--surface-soft)] text-left backdrop-blur-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--page-bg)]"
                   style={{
                     gridColumn: `span ${activeSpan.cols}`,
                     gridRow: `span ${activeSpan.rows}`,
                     zIndex: isActive ? 1 : 0,
+                    borderColor: isActive
+                      ? "var(--primary)"
+                      : "var(--photo-frame-border)",
                     boxShadow: isActive
-                      ? "0 18px 40px light-dark(rgba(15,23,42,0.14), rgba(2,8,23,0.42))"
-                      : "none",
+                      ? "0 28px 80px var(--shadow-warm)"
+                      : "0 14px 36px var(--shadow-soft)",
                   }}
-                  animate={{ opacity: isDimmed ? 0.34 : 1 }}
+                  animate={{ opacity: isDimmed ? 0.4 : 1 }}
                   transition={{
                     layout: { duration: reduceMotion ? 0 : 0.5, ease: EASE },
                     opacity: { duration: reduceMotion ? 0 : 0.2 },
@@ -308,9 +311,15 @@ export function PhotoMosaic() {
 
                   <motion.div
                     aria-hidden
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0),rgba(15,23,42,0.1))]"
-                    animate={{ opacity: isActive ? 0.18 : 1 }}
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,141,135,0.18),rgba(255,255,255,0),rgba(36,2,10,0.24))]"
+                    animate={{ opacity: isActive ? 0.12 : 0.82 }}
                     transition={{ duration: reduceMotion ? 0 : 0.18 }}
+                  />
+                  <motion.div
+                    aria-hidden
+                    className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,215,9,0.22),transparent_48%)]"
+                    animate={{ opacity: isActive ? 0.36 : 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.24 }}
                   />
                 </motion.button>
               );
